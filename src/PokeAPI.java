@@ -12,10 +12,17 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Random;
 
 public class PokeAPI extends Pokemon{
 
    private static String line;
+
+    public static Random getRandom() {
+        return random;
+    }
+
+    private static Random random = new Random();
 
    // static String databaseUrl = "https://pokeapi.co/api/v2/berry/1/";
 
@@ -72,9 +79,19 @@ public class PokeAPI extends Pokemon{
 
             // Close the connection
             connection.disconnect();
+            randomPokemon();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+    }
+
+    public static void randomPokemon(){
+
+
+            int randId = getRandom().nextInt(1292);
+            randId++;
+
 
     }
 
