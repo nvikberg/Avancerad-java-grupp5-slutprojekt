@@ -1,4 +1,5 @@
 import com.eclipsesource.json.Json;
+import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
 import com.google.gson.Gson;
 
@@ -10,7 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
-public class PokeAPI extends GUI{
+public class PokeAPI {
 
    private static String line;
 
@@ -56,9 +57,9 @@ public class PokeAPI extends GUI{
 
                 //here we can get values out from the url data (detta visade Alrik efter du gick)
                 jv= Json.parse(String.valueOf(response));
-                /*JsonObject jo = jv.asObject().get("species").asObject();
+                JsonObject jo = jv.asObject().get("species").asObject();
                 String s = jo.get("name").asString();
-                System.out.println(s);*/
+                System.out.println(s);
 
             } else { //404 403 402 etc error koder
                 // Handle the error response
@@ -74,59 +75,11 @@ public class PokeAPI extends GUI{
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(id);
         return jv;
     }
 
-    public void rand (){
-        int e = 5;
-        System.out.println(e);
-    }
 
 
-
-    public static void putRequest(String content) {
-
-
-        try {
-            //URL url = new URL(databaseUrl + databasePath);
-            URL url = new URL("https://test-9d5b8-default-rtdb.europe-west1.firebasedatabase.app/.json");
-
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-            connection.setRequestMethod("PUT");
-
-            connection.setDoOutput(true);
-
-            // connection.setRequestProperty("Content-Type", "application/json"); //typen
-            connection.setRequestProperty("Content-Type", "application/json"); //typen
-
-            HashMap<String, Object> dataMap = new HashMap<>();
-            dataMap.put("key", content);
-
-
-            String jsonInputString = new Gson().toJson(dataMap);
-            //String jsonInputString = "{\"name\": \"Alrik\"}";
-
-            // Write the data to the output stream
-            try (OutputStream os = connection.getOutputStream()) {
-                byte[] input = jsonInputString.getBytes("utf-8");
-                os.write(input, 0, input.length);
-            }
-
-            // Get the response code
-            int responseCode = connection.getResponseCode();
-
-            if (responseCode == HttpURLConnection.HTTP_OK)
-                System.out.println("PUT request successful");
-            else
-                System.out.println("Error response code: " + responseCode);
-
-
-            // Close the connection
-            connection.disconnect();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }
 

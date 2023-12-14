@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 
 
-public class GUI extends Main {
+public class GUI {
     static TextField textField;
     static JTextArea textArea;
     JButton buttonTrue, buttonFalse;
@@ -88,8 +88,7 @@ public class GUI extends Main {
         //frame.add(labelCorrectAnswer);
         frame.add(name);
         frame.setVisible(true);
-
-        PokeAPI.getRequest(4);
+        new Pokemon();
         //questions();
     }
 }
