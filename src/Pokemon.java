@@ -1,3 +1,4 @@
+import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
 
@@ -7,6 +8,13 @@ import java.util.Random;
 
 public class Pokemon {
 
+    private static JsonObject jsObject;
+    private final Random RAND = new Random();
+    private static String name;
+    private static String type;
+    private static String ability;
+    private JsonValue jsValue;
+    static URL imageURL;
 
     public Random getRand() {
         return RAND;
@@ -17,37 +25,31 @@ public class Pokemon {
     public void setName(String name) {
         this.name = name;
     }
-    public static String getNaturalGiftType() {
-        return naturalGiftType;
+    public static String getType() {
+        return type;
     }
-
-    public void setNaturalGiftType(String naturalGiftType) {
-        this.naturalGiftType = naturalGiftType;
+    public void setType(String type) {
+        this.type = type;
 
     }
-
+    public static String getAbility(){
+        return ability;
+    }
+    public void setAbility(String ability) {
+        this.ability = ability;
+    }
     public JsonValue getJsValue() {
         return jsValue;
     }
     public void setJsValue(JsonValue information) {
         this.jsValue = information;
     }
-
     public static JsonObject getJsObject() {
         return jsObject;
     }
-
     public void setJsObject(JsonObject jsObject) {
         this.jsObject = jsObject;
     }
-
-    private static JsonObject jsObject;
-    private final Random RAND = new Random();
-    private static String name;
-    private static String naturalGiftType;
-    private JsonValue jsValue, ngTypeValue;
-     static URL imageURL;
-
 
     Pokemon() {
         // exempel på hur man kan använda Jsonvalue nu med id
@@ -61,21 +63,42 @@ public class Pokemon {
         setName(name);
         System.out.println(getName());
 
-        //naturalGiftType(); //pokemon ng type method call
+         findType();
+         findAbility();
+
     }
 
-    //method for retrieving the natural gift type
-        private void naturalGiftType () {
-            JsonValue ngTypeValue = getJsObject().get("natural_gift_type:").asObject();
-            if (ngTypeValue != null && ngTypeValue.isObject()) { //see if pokemon has a natural gift type
-                JsonObject ngTypeObject = ngTypeValue.asObject(); //saves
-                String ngTypeName = ngTypeObject.get("name:").asString();
-                setNaturalGiftType(ngTypeName);
-                System.out.println(getNaturalGiftType());
+    public void findAbility() { //method for finding Abilites in pokemon from json
+        JsonArray abilityArray = getJsObject().get("abilities").asArray();//retrives the array value from jsonObject, now abilityArray holds the array of the json value "abilities"
+        if (!abilityArray.isEmpty()) { //as long as it's not empty it will run the for loop
+            StringBuilder abilityBuilder = new StringBuilder(); //to be able to modify the strings directly
+            for (JsonValue abilityValue : abilityArray) { //iterates over each Value in the Array
+                JsonObject abilityObject = abilityValue.asObject().get("ability").asObject(); //extracts the value to an object
+                String pokemonAbility = abilityObject.get("name").asString(); //extracts "name" and save data to pokemon as a string
+                abilityBuilder.append(pokemonAbility).append(" ");
+            }
+            setAbility(abilityBuilder.toString().trim());
+            System.out.println(getAbility());
+        } else {
+            System.out.println("No abilities found for this Pokemon.");
+        }
+    }
+        public void findType() { //method for finding "types" in pokemon from json
+        JsonArray typesArray = getJsObject().get("types").asArray();//retrives the array value from jsonObject, now typesArray holds the array of the json value "types"
+        if (!typesArray.isEmpty()) { //as long as it's not empty it will run the for loop
+            StringBuilder typeBuilder = new StringBuilder(); //to be able to modify the strings directly
+            for (JsonValue typeValue : typesArray) { //iterates over each typevValue in the typeArray
+                JsonObject typeObject = typeValue.asObject().get("type").asObject(); //extracts the value "type" to object
+                String pokemonType = typeObject.get("name").asString(); //extracts "name" and save to pokemon type as string
+                typeBuilder.append(pokemonType).append(" "); //building strings from pokemonTypes + append (space between)
+            }
+                setType(typeBuilder.toString().trim()); //converts the data from typebuilder to a string and sets it to setType
+                System.out.println(getType()); //call getType method to print out in console
             } else {
-                System.out.println("Natural gift type not found for this Pokemon.");
+                    System.out.println("No types found for this Pokemon.");
             }
         }
+
     // takes the URL for the specific pokemon and returns that URL
     public static URL findSprite(){
         JsonObject sprite = getJsObject().get("sprites").asObject();
@@ -89,9 +112,6 @@ public class Pokemon {
         return imageURL;
     }
 
-    //public static findTypes(){
-
-    //}
 
     //Randomizes a number between 0 and 1000 and uses that number as
     // an id for the pokemon API so that it can find that pokemon
@@ -101,7 +121,5 @@ public class Pokemon {
         int id = getRand().nextInt(1000);
         id++;
         return id;
-
     }
-
 }

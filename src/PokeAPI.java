@@ -14,14 +14,8 @@ import java.util.HashMap;
 public class PokeAPI {
 
    private static String line;
-
-
-
     static JsonValue jv;
-
    // static String databaseUrl = "https://pokeapi.co/api/v2/berry/1/";
-
-
 
     public static JsonValue getRequest(int id) {
         //String databaseURl = "https://pokeapi.co/api/v2/pokemon/ditto";
@@ -35,12 +29,11 @@ public class PokeAPI {
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             // Set the request method to GET
-            connection.setRequestMethod("GET"); //POST , PATCH , DELETE
+            connection.setRequestMethod("GET");
 
-            // Get the response code t.ex 400, 404, 200 är ok
+            //
             int responseCode = connection.getResponseCode();
-            //  System.out.println("response code:" +responseCode);
-            if (responseCode == HttpURLConnection.HTTP_OK) { // ok är bra
+            if (responseCode == HttpURLConnection.HTTP_OK) { //
                 // Read the response from the InputStream
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
                 StringBuilder response = new StringBuilder();
@@ -54,8 +47,7 @@ public class PokeAPI {
                 System.out.println("Response from Firebase Realtime Database:");
                 System.out.println(response);
 
-
-                //here we can get values out from the url data (detta visade Alrik efter du gick)
+                //get values out from the url data
                 jv= Json.parse(String.valueOf(response));
                 JsonObject jo = jv.asObject().get("species").asObject();
                 String s = jo.get("name").asString();
@@ -78,8 +70,5 @@ public class PokeAPI {
         System.out.println(id);
         return jv;
     }
-
-
-
 }
 
