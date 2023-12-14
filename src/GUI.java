@@ -1,28 +1,15 @@
-
-import com.eclipsesource.json.Json;
-import com.eclipsesource.json.JsonObject;
-import com.eclipsesource.json.JsonValue;
-import com.google.gson.Gson;
-
 import javax.swing.*;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.HashMap;
 
 
-public class Pokemon extends Main {
+public class GUI extends Main {
     static TextField textField;
     static JTextArea textArea;
     JButton buttonTrue, buttonFalse;
     JLabel labelWrongAnswer, labelCorrectAnswer, name;
     static String databaseUrl = "https://pokeapi.co/api/v2/berry/1/";
 
-    Pokemon() {
+    GUI() {
         // super();
 
         JFrame frame = new JFrame();
@@ -46,7 +33,7 @@ public class Pokemon extends Main {
         labelCorrectAnswer.setBackground(new Color(25, 25, 25));
         labelCorrectAnswer.setHorizontalTextPosition(SwingConstants.CENTER);
 
-        textField = new TextField(); //this can hold quiz question about the pokemon
+        textField = new TextField(); //this can hold quiz question
         textField.setBounds(25, 100, 650, 50);
         textField.setBackground(new Color(25, 25, 25));
         textField.setForeground(new Color(250, 250, 250));
