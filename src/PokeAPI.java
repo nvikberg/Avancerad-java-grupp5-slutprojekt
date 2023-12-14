@@ -13,7 +13,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
-public class PokeAPI extends Pokemon{
+public class PokeAPI extends GUI{
 
    private static String line;
 
@@ -67,8 +67,8 @@ public class PokeAPI extends Pokemon{
                 System.out.println("Error response code: " + responseCode);
             }
 
-            textField.setText(line);
-            textArea.append("hej");
+            GUI.textField.setText(line);
+            GUI.textArea.append("hej");
 
             // Close the connection
             connection.disconnect();
