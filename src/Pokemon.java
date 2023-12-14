@@ -6,15 +6,26 @@ import java.net.URL;
 import java.util.Random;
 
 public class Pokemon {
+
+
     public Random getRand() {
         return RAND;
     }
-    public String getName() {
+    public static String getName() {
         return name;
     }
     public void setName(String name) {
         this.name = name;
     }
+    public static String getNaturalGiftType() {
+        return naturalGiftType;
+    }
+
+    public void setNaturalGiftType(String naturalGiftType) {
+        this.naturalGiftType = naturalGiftType;
+
+    }
+
     public JsonValue getJsValue() {
         return jsValue;
     }
@@ -32,8 +43,9 @@ public class Pokemon {
 
     private static JsonObject jsObject;
     private final Random RAND = new Random();
-    private String name;
-    private JsonValue jsValue;
+    private static String name;
+    private static String naturalGiftType;
+    private JsonValue jsValue, ngTypeValue;
      static URL imageURL;
 
 
@@ -49,10 +61,21 @@ public class Pokemon {
         setName(name);
         System.out.println(getName());
 
-
-
+        //naturalGiftType(); //pokemon ng type method call
     }
 
+    //method for retrieving the natural gift type
+        private void naturalGiftType () {
+            JsonValue ngTypeValue = getJsObject().get("natural_gift_type:").asObject();
+            if (ngTypeValue != null && ngTypeValue.isObject()) { //see if pokemon has a natural gift type
+                JsonObject ngTypeObject = ngTypeValue.asObject(); //saves
+                String ngTypeName = ngTypeObject.get("name:").asString();
+                setNaturalGiftType(ngTypeName);
+                System.out.println(getNaturalGiftType());
+            } else {
+                System.out.println("Natural gift type not found for this Pokemon.");
+            }
+        }
     // takes the URL for the specific pokemon and returns that URL
     public static URL findSprite(){
         JsonObject sprite = getJsObject().get("sprites").asObject();
@@ -66,8 +89,13 @@ public class Pokemon {
         return imageURL;
     }
 
+    //public static findTypes(){
+
+    //}
+
     //Randomizes a number between 0 and 1000 and uses that number as
     // an id for the pokemon API so that it can find that pokemon
+    //each time user starts the program, a new pokemon gets randomized
     public int randomId() {
 
         int id = getRand().nextInt(1000);

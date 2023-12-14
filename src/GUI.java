@@ -10,7 +10,7 @@ public class GUI {
     static TextField textField;
     static JTextArea textArea;
     JButton buttonTrue, buttonFalse;
-    JLabel labelWrongAnswer, labelCorrectAnswer, name;
+    JLabel labelWrongAnswer, labelCorrectAnswer, name, labelQuestion;
     static String databaseUrl = "https://pokeapi.co/api/v2/berry/1/";
 
     GUI() {
@@ -25,41 +25,33 @@ public class GUI {
         frame.setLocation(300, 150);
         frame.setResizable(false);
 
+        labelQuestion = new JLabel("QUIZ QUESTION"); //this can hold quiz question
+        labelQuestion.setFont(new Font("Sans", Font.BOLD, 18));
+        labelQuestion.setBounds(0, 25, 700, 80);
+        labelQuestion.setBackground(new Color(25, 25, 25));
+        labelQuestion.setForeground(new Color(222, 194, 24));
+        labelQuestion.setHorizontalAlignment(SwingConstants.CENTER);
+
         labelWrongAnswer = new JLabel("Evil insults/correct answer here");
-        labelWrongAnswer.setFont(new Font("Verdana", Font.BOLD, 18));
-        labelWrongAnswer.setBounds(230, 25, 700, 80);
+        labelWrongAnswer.setFont(new Font("Verdana", Font.PLAIN, 18));
+        labelWrongAnswer.setBounds(200, 100, 700, 80);
         labelWrongAnswer.setBackground(new Color(25, 25, 25));
-        labelWrongAnswer.setForeground(new Color(250, 250, 250));
+        labelWrongAnswer.setForeground(new Color(211, 106, 19));
+        labelWrongAnswer.setHorizontalTextPosition(SwingConstants.CENTER);
 
         labelCorrectAnswer = new JLabel("You were correct!");
         labelCorrectAnswer.setFont(new Font("Verdana", Font.BOLD, 18));
-        labelCorrectAnswer.setBounds(300, 25, 700, 80);
+        labelCorrectAnswer.setBounds(0, 100, 700, 80);
         labelCorrectAnswer.setBackground(new Color(25, 25, 25));
+        labelCorrectAnswer.setForeground(new Color(211, 106, 19));
         labelCorrectAnswer.setHorizontalTextPosition(SwingConstants.CENTER);
 
-        textField = new TextField(); //this can hold quiz question
-        textField.setBounds(25, 100, 650, 50);
-        textField.setBackground(new Color(25, 25, 25));
-        textField.setForeground(new Color(250, 250, 250));
-        //textField.setEditable(false);
-        textField.setText("Question");
-
-        name = new JLabel("Pokemon Name Here");
-        name.setFont(new Font("Verdana", Font.BOLD, 18));
-        name.setBounds(230, 180, 300, 80);
+        name = new JLabel("Pokemon name goes here");
+        name.setFont(new Font("Verdana", Font.PLAIN, 18));
+        name.setBounds(0, 180, 700, 80);
         name.setBackground(new Color(25, 25, 25));
         name.setForeground(new Color(250, 250, 250));
-
-        /*textArea = new JTextArea(); //maybe this can hold both name and photo from API.. not sure how it will work yet
-        textArea.setBounds(250, 250, 200, 200);
-        textArea.setBackground(new Color(25, 25, 25));
-        textArea.setForeground(new Color(250, 250, 250));
-        textArea.setEditable(false);
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
-        textArea.setText("API INFO");*/
-
-
+        name.setHorizontalAlignment(SwingConstants.CENTER);
 
         buttonTrue = new JButton();
         buttonTrue.setBounds(230, 500, 100, 80);
@@ -73,7 +65,6 @@ public class GUI {
         buttonFalse.setFont(new Font("Verdana", Font.BOLD, 18));
         buttonFalse.setText("False");
 
-
 /*
         textField.setBackground(new Color(10,100,0));
         JButton button = new JButton("Add text to Fire Base");
@@ -86,7 +77,7 @@ public class GUI {
         });
 */
 
-        frame.add(textField);
+        frame.add(labelQuestion);
         /*frame.add(textArea);*/
         frame.add(buttonTrue);
         frame.add(buttonFalse);
@@ -96,14 +87,21 @@ public class GUI {
 
         new Pokemon();
 
-        try {
+
+        //adding name and type for random pokemon in GUI label
+        name.setText(Pokemon.getName().toUpperCase());
+
+        try {// access the Pokemon sprite image from pokemon class
             URL imageURL = Pokemon.findSprite();
             BufferedImage img = ImageIO.read(imageURL);
             ImageIcon icon = new ImageIcon(img);
             JLabel sprite = new JLabel();
             sprite.setIcon(icon);
+            int width = 200;
+            int height = 200;
+            sprite.setBounds(300,250, width, height);
 
-            sprite.setBounds(300, 250, 700, 200);
+           // sprite.setBounds(300, 250, 700, 200);
 
             frame.add(sprite);
         } catch (IOException e) {
