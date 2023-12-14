@@ -16,30 +16,73 @@ import java.util.HashMap;
 
 
 public class Pokemon extends Main {
-    static String line;
     static TextField textField;
     static JTextArea textArea;
-
-    ImageIcon image = new ImageIcon("santaxoxo.png");  //create image icon to use in frame and more
-    // static String databaseUrl = "https://pokeapi.co/api/v2/berry/1/";
+    JButton buttonTrue, buttonFalse;
+    JLabel labelWrongAnswer, labelCorrectAnswer, name;
+    static String databaseUrl = "https://pokeapi.co/api/v2/berry/1/";
 
     Pokemon() {
         // super();
 
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //fonstret stangs
-        frame.setTitle("FireTest");
-        frame.setLayout(new GridLayout());
-        frame.setSize(500, 500);
+        frame.setTitle("Pokemon Quiz");
+        frame.setLayout(null);
+        frame.setSize(700, 700);
+        frame.getContentPane().setBackground(new Color(5, 42, 68));
         frame.setLocation(300, 150);
         frame.setResizable(false);
-        frame.setIconImage(image.getImage()); //place logo in frame (switches out java logo)
-        frame.getContentPane().setBackground(Color.WHITE);
-        textField = new TextField("type here");
-        //textField.setSize(100,30);
-        textArea = new JTextArea();
-        textArea.setSize(100,30);
+
+        labelWrongAnswer = new JLabel("Evil insults/correct answer here");
+        labelWrongAnswer.setFont(new Font("Verdana", Font.BOLD, 18));
+        labelWrongAnswer.setBounds(230, 25, 700, 80);
+        labelWrongAnswer.setBackground(new Color(25, 25, 25));
+        labelWrongAnswer.setForeground(new Color(250, 250, 250));
+
+        labelCorrectAnswer = new JLabel("You were correct!");
+        labelCorrectAnswer.setFont(new Font("Verdana", Font.BOLD, 18));
+        labelCorrectAnswer.setBounds(300, 25, 700, 80);
+        labelCorrectAnswer.setBackground(new Color(25, 25, 25));
+        labelCorrectAnswer.setHorizontalTextPosition(SwingConstants.CENTER);
+
+        textField = new TextField(); //this can hold quiz question about the pokemon
+        textField.setBounds(25, 100, 650, 50);
+        textField.setBackground(new Color(25, 25, 25));
+        textField.setForeground(new Color(250, 250, 250));
+        //textField.setEditable(false);
+        textField.setText("Question");
+
+        name = new JLabel("Pokemon Name Here");
+        name.setFont(new Font("Verdana", Font.BOLD, 18));
+        name.setBounds(230, 180, 300, 80);
+        name.setBackground(new Color(25, 25, 25));
+        name.setForeground(new Color(250, 250, 250));
+
+        textArea = new JTextArea(); //maybe this can hold both name and photo from API.. not sure how it will work yet
+        textArea.setBounds(250, 250, 200, 200);
+        textArea.setBackground(new Color(25, 25, 25));
+        textArea.setForeground(new Color(250, 250, 250));
+        textArea.setEditable(false);
         textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        textArea.setText("API INFO");
+
+        buttonTrue = new JButton();
+        buttonTrue.setBounds(230, 500, 100, 80);
+        buttonTrue.setFocusable(false);
+        buttonTrue.setFont(new Font("Verdana", Font.BOLD, 20));
+        buttonTrue.setText("True");
+
+        buttonFalse = new JButton();
+        buttonFalse.setBounds(360, 500, 100, 80);
+        buttonFalse.setFocusable(false);
+        buttonFalse.setFont(new Font("Verdana", Font.BOLD, 18));
+        buttonFalse.setText("False");
+
+
+/*
+        textField.setBackground(new Color(10,100,0));
         JButton button = new JButton("Add text to Fire Base");
         button.addActionListener(e -> {
             try {
@@ -48,111 +91,18 @@ public class Pokemon extends Main {
                 throw new RuntimeException(ex);
             }
         });
+*/
+
         frame.add(textField);
         frame.add(textArea);
-        frame.add(button);
+        frame.add(buttonTrue);
+        frame.add(buttonFalse);
+        frame.add(labelWrongAnswer);
+        //frame.add(labelCorrectAnswer);
+        frame.add(name);
         frame.setVisible(true);
 
-        getRequest();
-    }
-
-    public static void getRequest() {
-        //String databaseURl = "https://pokeapi.co/api/v2/pokemon/ditto";
-
-        try {
-            // Create the URL for the HTTP GET request
-            //URL url = new URL(databaseUrl + databasePath);
-            URL url = new URL("https://pokeapi.co/api/v2/pokemon/ditto");
-
-            // Open a connection to the URL
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-            // Set the request method to GET
-            connection.setRequestMethod("GET"); //POST , PATCH , DELETE
-
-            // Get the response code t.ex 400, 404, 200 är ok
-            int responseCode = connection.getResponseCode();
-            //  System.out.println("response code:" +responseCode);
-            if (responseCode == HttpURLConnection.HTTP_OK) { // ok är bra
-                // Read the response from the InputStream
-                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-                StringBuilder response = new StringBuilder();
-
-                while ((line = reader.readLine()) != null) {
-                    response.append(line);
-                    textArea.append(line);
-                }
-                reader.close();
-
-                // Handle the response data
-                System.out.println("Response from Firebase Realtime Database:");
-                System.out.println(response);
-
-
-                //here we can get values out from the url data (detta visade Alrik efter du gick)
-                JsonValue jv= Json.parse(String.valueOf(response));
-                JsonObject jo = jv.asObject().get("species").asObject();
-                String s = jo.get("name").asString();
-                System.out.println(s);
-
-            } else { //404 403 402 etc error koder
-                // Handle the error response
-                System.out.println("Error response code: " + responseCode);
-            }
-
-            textField.setText(line);
-            //textArea.append("hej");
-
-            // Close the connection
-            connection.disconnect();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    public static void putRequest(String content) {
-
-
-        try {
-            //URL url = new URL(databaseUrl + databasePath);
-            URL url = new URL("https://test-9d5b8-default-rtdb.europe-west1.firebasedatabase.app/.json");
-
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-            connection.setRequestMethod("PUT");
-
-            connection.setDoOutput(true);
-
-            // connection.setRequestProperty("Content-Type", "application/json"); //typen
-            connection.setRequestProperty("Content-Type", "application/json"); //typen
-
-            HashMap<String, Object> dataMap = new HashMap<>();
-            dataMap.put("key", content);
-
-
-            String jsonInputString = new Gson().toJson(dataMap);
-            //String jsonInputString = "{\"name\": \"Alrik\"}";
-
-            // Write the data to the output stream
-            try (OutputStream os = connection.getOutputStream()) {
-                byte[] input = jsonInputString.getBytes("utf-8");
-                os.write(input, 0, input.length);
-            }
-
-            // Get the response code
-            int responseCode = connection.getResponseCode();
-
-            if (responseCode == HttpURLConnection.HTTP_OK)
-                System.out.println("PUT request successful");
-            else
-                System.out.println("Error response code: " + responseCode);
-
-
-            // Close the connection
-            connection.disconnect();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        PokeAPI.getRequest();
+        //questions();
     }
 }
