@@ -53,6 +53,7 @@ public class Pokemon {
 
     }
 
+    // takes the URL for the specific pokemon and returns that URL
     public static URL findSprite(){
         JsonObject sprite = getJsObject().get("sprites").asObject();
         String spriteURL = sprite.get("front_default").asString();
@@ -62,10 +63,11 @@ public class Pokemon {
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
-        System.out.println(imageURL);
         return imageURL;
     }
 
+    //Randomizes a number between 0 and 1000 and uses that number as
+    // an id for the pokemon API so that it can find that pokemon
     public int randomId() {
 
         int id = getRand().nextInt(1000);
