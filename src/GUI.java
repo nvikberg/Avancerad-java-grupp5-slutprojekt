@@ -89,7 +89,7 @@ public class GUI extends Main {
         frame.add(name);
         frame.setVisible(true);
 
-        PokeAPI.getRequest();
+        PokeAPI.getRequest(4);
         //questions();
     }
 }

@@ -1,10 +1,7 @@
 import com.eclipsesource.json.Json;
-import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
 import com.google.gson.Gson;
 
-import javax.swing.*;
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,31 +9,26 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
-import java.util.Random;
 
 public class PokeAPI extends GUI{
 
    private static String line;
 
-    public static Random getRandom() {
-        return random;
-    }
 
-    private static Random random = new Random();
+
+    static JsonValue jv;
 
    // static String databaseUrl = "https://pokeapi.co/api/v2/berry/1/";
 
 
-    PokeAPI(){
-    }
 
-    public static void getRequest() {
+    public static JsonValue getRequest(int id) {
         //String databaseURl = "https://pokeapi.co/api/v2/pokemon/ditto";
 
         try {
             // Create the URL for the HTTP GET request
             //URL url = new URL(databaseUrl + databasePath);
-            URL url = new URL("https://pokeapi.co/api/v2/pokemon/ditto");
+            URL url = new URL("https://pokeapi.co/api/v2/pokemon/" + id);
 
             // Open a connection to the URL
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -54,7 +46,6 @@ public class PokeAPI extends GUI{
 
                 while ((line = reader.readLine()) != null) {
                     response.append(line);
-                    textArea.append(line);
                 }
                 reader.close();
 
@@ -64,10 +55,10 @@ public class PokeAPI extends GUI{
 
 
                 //here we can get values out from the url data (detta visade Alrik efter du gick)
-                JsonValue jv= Json.parse(String.valueOf(response));
-                JsonObject jo = jv.asObject().get("species").asObject();
+                jv= Json.parse(String.valueOf(response));
+                /*JsonObject jo = jv.asObject().get("species").asObject();
                 String s = jo.get("name").asString();
-                System.out.println(s);
+                System.out.println(s);*/
 
             } else { //404 403 402 etc error koder
                 // Handle the error response
@@ -79,21 +70,19 @@ public class PokeAPI extends GUI{
 
             // Close the connection
             connection.disconnect();
-            randomPokemon();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        return jv;
     }
 
-    public static void randomPokemon(){
-
-
-            int randId = getRandom().nextInt(1292);
-            randId++;
-
-
+    public void rand (){
+        int e = 5;
+        System.out.println(e);
     }
+
+
 
     public static void putRequest(String content) {
 
