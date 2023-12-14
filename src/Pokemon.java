@@ -1,6 +1,8 @@
 import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Random;
 
 public class Pokemon {
@@ -13,14 +15,14 @@ public class Pokemon {
     public void setName(String name) {
         this.name = name;
     }
-    public JsonValue getJSInformation() {
-        return jsInformation;
+    public JsonValue getJsValue() {
+        return jsValue;
     }
-    public void setJSInformation(JsonValue information) {
-        this.jsInformation = information;
+    public void setJsValue(JsonValue information) {
+        this.jsValue = information;
     }
 
-    public JsonObject getJsObject() {
+    public static JsonObject getJsObject() {
         return jsObject;
     }
 
@@ -28,29 +30,45 @@ public class Pokemon {
         this.jsObject = jsObject;
     }
 
-    private JsonObject jsObject;
+    private static JsonObject jsObject;
     private final Random RAND = new Random();
     private String name;
-    private JsonValue jsInformation;
+    private JsonValue jsValue;
+     static URL imageURL;
 
 
     Pokemon() {
         // exempel på hur man kan använda Jsonvalue nu med id
         JsonValue jv = PokeAPI.getRequest(randomId());
         //sparar jsvalue för framtid manipulation, samma med jsonObject
-        setJSInformation(jv);
-        setJsObject(getJSInformation().asObject());
+        setJsValue(jv);
+        setJsObject(getJsValue().asObject());
 
         JsonObject jo = getJsObject().get("species").asObject();
         String name = jo.get("name").asString();
         setName(name);
         System.out.println(getName());
 
+
+
+    }
+
+    public static URL findSprite(){
+        JsonObject sprite = getJsObject().get("sprites").asObject();
+        String spriteURL = sprite.get("front_default").asString();
+
+        try {
+            imageURL= new URL(spriteURL);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(imageURL);
+        return imageURL;
     }
 
     public int randomId() {
 
-        int id = getRand().nextInt(1292);
+        int id = getRand().nextInt(1000);
         id++;
         return id;
 

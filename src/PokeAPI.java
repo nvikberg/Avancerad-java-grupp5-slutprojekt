@@ -66,8 +66,8 @@ public class PokeAPI {
                 System.out.println("Error response code: " + responseCode);
             }
 
-            GUI.textField.setText(line);
-            GUI.textArea.append("hej");
+            /*GUI.textField.setText(line);
+            GUI.textArea.append("hej");*/
 
             // Close the connection
             connection.disconnect();

@@ -1,5 +1,9 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 
 
 public class GUI {
@@ -46,14 +50,16 @@ public class GUI {
         name.setBackground(new Color(25, 25, 25));
         name.setForeground(new Color(250, 250, 250));
 
-        textArea = new JTextArea(); //maybe this can hold both name and photo from API.. not sure how it will work yet
+        /*textArea = new JTextArea(); //maybe this can hold both name and photo from API.. not sure how it will work yet
         textArea.setBounds(250, 250, 200, 200);
         textArea.setBackground(new Color(25, 25, 25));
         textArea.setForeground(new Color(250, 250, 250));
         textArea.setEditable(false);
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
-        textArea.setText("API INFO");
+        textArea.setText("API INFO");*/
+
+
 
         buttonTrue = new JButton();
         buttonTrue.setBounds(230, 500, 100, 80);
@@ -81,14 +87,29 @@ public class GUI {
 */
 
         frame.add(textField);
-        frame.add(textArea);
+        /*frame.add(textArea);*/
         frame.add(buttonTrue);
         frame.add(buttonFalse);
         frame.add(labelWrongAnswer);
         //frame.add(labelCorrectAnswer);
         frame.add(name);
-        frame.setVisible(true);
+
         new Pokemon();
+
+        try {
+            URL imageURL = Pokemon.findSprite();
+            BufferedImage img = ImageIO.read(imageURL);
+            ImageIcon icon = new ImageIcon(img);
+            JLabel sprite = new JLabel();
+            sprite.setIcon(icon);
+
+            sprite.setBounds(300, 250, 700, 200);
+
+            frame.add(sprite);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        frame.setVisible(true);
         //questions();
     }
 }
