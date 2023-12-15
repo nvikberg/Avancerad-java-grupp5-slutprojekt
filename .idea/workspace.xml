@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8e0bd7a-e7a0-401a-b5d1-66211d8f0c39" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frameIcon.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PokeAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PokeAPI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pokemon.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +55,8 @@
     "onboarding.tips.debug.path": "C:/Users/johna/java klass/SlutProjekt_PokemonQuiz/src/Main.java",
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "editing.templates"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -91,7 +89,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Pokemon.java</url>
-          <line>25</line>
+          <line>32</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -101,7 +99,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/Pokemon.java</url>
-          <line>24</line>
+          <line>31</line>
           <properties class="Pokemon" method="setName">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
@@ -110,7 +108,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/Pokemon.java</url>
-          <line>27</line>
+          <line>35</line>
           <properties class="Pokemon" method="getType">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />

@@ -1,3 +1,8 @@
+/**
+ * @authors Sam Danielsson & Nikolina Vikberg
+ * @see https://github.com/nvikberg/SlutProjekt_PokemonQuiz.git
+ **/
+
 import com.eclipsesource.json.JsonArray;
 import com.eclipsesource.json.JsonObject;
 import com.eclipsesource.json.JsonValue;
@@ -12,41 +17,51 @@ public class Pokemon {
     private final Random RAND = new Random();
     private static String name;
     private static String type;
-    private static String ability;
+    private static String move;
     private JsonValue jsValue;
     static URL imageURL;
 
     public Random getRand() {
         return RAND;
     }
+
     public static String getName() {
         return name;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public static String getType() {
         return type;
     }
+
     public void setType(String type) {
         this.type = type;
 
     }
-    public static String getAbility(){
-        return ability;
+
+    public static String getMove() {
+        return move;
     }
-    public void setAbility(String ability) {
-        this.ability = ability;
+
+    public void setMove(String move) {
+        this.move = move;
     }
+
     public JsonValue getJsValue() {
         return jsValue;
     }
+
     public void setJsValue(JsonValue information) {
         this.jsValue = information;
     }
+
     public static JsonObject getJsObject() {
         return jsObject;
     }
+
     public void setJsObject(JsonObject jsObject) {
         this.jsObject = jsObject;
     }
@@ -63,41 +78,36 @@ public class Pokemon {
         setName(name);
         System.out.println(getName());
 
-         findType();
-         findAbility();
+        findType();
+        findMove();
 
     }
+/* //alriks kod
+JsonValue jv = Json.parse(response.toString());
+JsomObject jo = jv.asObject();
+JsonArray ja = jo.get("abilities").asArray();
+JsonObject inne = ja.get(0).asObject();
+String name = inne.getString("name", "no ability");
+sout (name)
+ */
 
-    public void findAbility() { //method for finding Abilites in pokemon from json
-        JsonArray abilityArray = getJsObject().get("abilities").asArray();//retrives the array value from jsonObject, now abilityArray holds the array of the json value "abilities"
-        if (!abilityArray.isEmpty()) { //as long as it's not empty it will run the for loop
-            StringBuilder abilityBuilder = new StringBuilder(); //to be able to modify the strings directly
-            for (JsonValue abilityValue : abilityArray) { //iterates over each Value in the Array
-                JsonObject abilityObject = abilityValue.asObject().get("ability").asObject(); //extracts the value to an object
-                String pokemonAbility = abilityObject.get("name").asString(); //extracts "name" and save data to pokemon as a string
-                abilityBuilder.append(pokemonAbility).append(" ");
-            }
-            setAbility(abilityBuilder.toString().trim());
-            System.out.println(getAbility());
-        } else {
-            System.out.println("No abilities found for this Pokemon.");
-        }
+
+    //need to find index in the array to only retrieve the first one
+    public void findMove() { //method for finding Abilites in pokemon from json
+        JsonArray moveArray = getJsObject().get("moves").asArray(); //retriving object to array
+        JsonObject moveObject = moveArray.get(0).asObject().get("move").asObject(); //get index 0 from array
+        setMove(moveObject.get("name").asString()); //gettar "name" from "move"
+        System.out.println(getMove());
     }
+
+
         public void findType() { //method for finding "types" in pokemon from json
-        JsonArray typesArray = getJsObject().get("types").asArray();//retrives the array value from jsonObject, now typesArray holds the array of the json value "types"
-        if (!typesArray.isEmpty()) { //as long as it's not empty it will run the for loop
-            StringBuilder typeBuilder = new StringBuilder(); //to be able to modify the strings directly
-            for (JsonValue typeValue : typesArray) { //iterates over each typevValue in the typeArray
-                JsonObject typeObject = typeValue.asObject().get("type").asObject(); //extracts the value "type" to object
-                String pokemonType = typeObject.get("name").asString(); //extracts "name" and save to pokemon type as string
-                typeBuilder.append(pokemonType).append(" "); //building strings from pokemonTypes + append (space between)
+            JsonArray typeArray = getJsObject().get("types").asArray(); //retriving object to array
+            System.out.println(typeArray.size());
+            JsonObject typeObject = typeArray.get(0).asObject().get("type").asObject(); //get index 0 from array
+            setType(typeObject.get("type").asString()); //gettar "name" from "move"
+           System.out.println(getType());
             }
-                setType(typeBuilder.toString().trim()); //converts the data from typebuilder to a string and sets it to setType
-                System.out.println(getType()); //call getType method to print out in console
-            } else {
-                    System.out.println("No types found for this Pokemon.");
-            }
-        }
 
     // takes the URL for the specific pokemon and returns that URL
     public static URL findSprite(){
