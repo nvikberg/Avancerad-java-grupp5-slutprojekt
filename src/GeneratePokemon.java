@@ -12,7 +12,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Pokemon {
+public class GeneratePokemon {
 
     private static JsonObject jsObject;
     private final Random RAND = new Random();
@@ -38,6 +38,8 @@ public class Pokemon {
         return type;
     }
 
+   String[]commonMoves=
+           {"tackle","leer","growl","take down","bite","agility","quick attack", "crunch", "slash","scary face","cut"};
 
     public void setType(String type) {
         this.type = type;
@@ -68,7 +70,7 @@ public class Pokemon {
         this.jsObject = jsObject;
     }
 
-    Pokemon() {
+    GeneratePokemon() {
         // exempel på hur man kan använda Jsonvalue nu med id
         JsonValue jv = PokeAPI.getRequest(randomId());
         //sparar jsvalue för framtid manipulation, samma med jsonObject
@@ -94,7 +96,10 @@ sout (name)
  */
 
 
-    //need to find index in the array to only retrieve the first one
+    //makes a jsonvalue for each index of the typeArray.
+    // Then that jsonvalue is turned into an object. Inside that object is the type,
+    // so we extract the type and then find its name and put it in a string,
+    // that String is then put into a list
     public void findMove() { //method for finding Abilites in pokemon from json
         ArrayList<String> moveArrayList = new ArrayList<>();
         JsonArray moveArray = getJsObject().get("moves").asArray(); //retriving object to array
@@ -104,9 +109,14 @@ sout (name)
             String move = (typeObject.get("name").asString());
             moveArrayList.add(move);
         }
+        System.out.println(moveArrayList);
+        /*for (String m:commonMoves){
+            if (moveArrayList.contains(m)){
+                moveArrayList.remove(m);
+                System.out.println(m + " Was Removed");
+            }
+        }*/
 
-        System.out.println(moveArrayList + " MOVES ");
-        
     }
 
 
