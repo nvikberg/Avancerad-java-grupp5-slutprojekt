@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Random;
 
-public class Pokemon {
+public class GeneratePokemon {
 
     private static JsonObject jsObject;
     private final Random RAND = new Random();
@@ -66,7 +66,7 @@ public class Pokemon {
         this.jsObject = jsObject;
     }
 
-    Pokemon() {
+    GeneratePokemon() {
         // exempel på hur man kan använda Jsonvalue nu med id
         JsonValue jv = PokeAPI.getRequest(randomId());
         //sparar jsvalue för framtid manipulation, samma med jsonObject
