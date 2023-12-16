@@ -108,8 +108,8 @@ public class GUI {
         new GeneratePokemon();
 
         //calling for name and type for random pokemon from the Pokemon class into GUI labels
-        name.setText(GeneratePokemon.getName().toUpperCase());
-        type.setText(GeneratePokemon.getType());
+        /*name.setText(GeneratePokemon.getName().toUpperCase());
+        type.setText(GeneratePokemon.getType());*/
 
         try {// access the Pokemon sprite image from pokemon class
             URL imageURL = GeneratePokemon.findSprite();

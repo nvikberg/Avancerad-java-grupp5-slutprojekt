@@ -72,15 +72,29 @@ public class GeneratePokemon {
 
     GeneratePokemon() {
         // exempel på hur man kan använda Jsonvalue nu med id
-        JsonValue jv = PokeAPI.getRequest(randomId());
-        //sparar jsvalue för framtid manipulation, samma med jsonObject
-        setJsValue(jv);
-        setJsObject(getJsValue().asObject());
 
-        JsonObject jo = getJsObject().get("species").asObject();
-        String name = jo.get("name").asString();
-        setName(name);
-        System.out.println(getName());
+        //sparar jsvalue för framtid manipulation, samma med jsonObject
+
+
+        ArrayList<Pokemon> pokemons = new ArrayList<>();
+
+        for (int i = 0; i<2; i++){
+            JsonValue jv = PokeAPI.getRequest(randomId());
+            setJsValue(jv);
+            setJsObject(getJsValue().asObject());
+            JsonObject jo = getJsObject().get("species").asObject();
+            String name = jo.get("name").asString();
+
+            Pokemon egg = new Pokemon (name,findSprite(),findMove(),findType());
+            pokemons.add(egg);
+        }
+
+        for (Pokemon s:pokemons){
+            s.pokemonInfo();
+        }
+
+
+
 
         findType();
         findMove();
@@ -100,7 +114,7 @@ sout (name)
     // Then that jsonvalue is turned into an object. Inside that object is the type,
     // so we extract the type and then find its name and put it in a string,
     // that String is then put into a list
-    public void findMove() { //method for finding Abilites in pokemon from json
+    public ArrayList<String> findMove() { //method for finding Abilites in pokemon from json
         ArrayList<String> moveArrayList = new ArrayList<>();
         JsonArray moveArray = getJsObject().get("moves").asArray(); //retriving object to array
 
@@ -109,7 +123,8 @@ sout (name)
             String move = (typeObject.get("name").asString());
             moveArrayList.add(move);
         }
-        System.out.println(moveArrayList);
+     /*   System.out.println(moveArrayList);*/
+        return moveArrayList;
         /*for (String m:commonMoves){
             if (moveArrayList.contains(m)){
                 moveArrayList.remove(m);
@@ -124,7 +139,7 @@ sout (name)
     // Then that jsonvalue is turned into an object. Inside that object is the type,
     // so we extract the type and then find its name and put it in a string,
     // that String is then put into a list
-        public void findType() { //method for finding "types" in pokemon from json
+        public ArrayList<String> findType() { //method for finding "types" in pokemon from json
             ArrayList<String> typeArrayList = new ArrayList<>();
             JsonArray typeArray = getJsObject().get("types").asArray(); //retriving object to array
 
@@ -132,8 +147,9 @@ sout (name)
                     JsonObject typeObject = typeValue.asObject().get("type").asObject();
                     String type = (typeObject.get("name").asString());
                     typeArrayList.add(type);
-                    System.out.println(typeArrayList);
+                    /*System.out.println(typeArrayList);*/
                 }
+                return typeArrayList;
             }
 
     // takes the URL for the specific pokemon and returns that URL
