@@ -1,5 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -105,14 +106,14 @@ public class GUI {
         frame.add(name);
         frame.add(type);
 
-        new GeneratePokemon();
+        new Pokemon();
 
         //calling for name and type for random pokemon from the Pokemon class into GUI labels
-        name.setText(GeneratePokemon.getName().toUpperCase());
-        type.setText(GeneratePokemon.getType());
+        name.setText(Pokemon.getName().toUpperCase());
+        type.setText(Pokemon.getType());
 
         try {// access the Pokemon sprite image from pokemon class
-            URL imageURL = GeneratePokemon.findSprite();
+            URL imageURL = Pokemon.findSprite();
             BufferedImage img = ImageIO.read(imageURL);
             ImageIcon icon = new ImageIcon(img);
             JLabel sprite = new JLabel();
