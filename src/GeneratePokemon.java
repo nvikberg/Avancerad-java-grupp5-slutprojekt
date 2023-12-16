@@ -70,13 +70,23 @@ public class GeneratePokemon {
         this.jsObject = jsObject;
     }
 
+    public static ArrayList<Pokemon> getPokemons() {
+        return pokemons;
+    }
+
+    public void setPokemons(ArrayList<Pokemon> pokemons) {
+        this.pokemons = pokemons;
+    }
+
+    private static ArrayList<Pokemon> pokemons;
+
     GeneratePokemon() {
         // exempel på hur man kan använda Jsonvalue nu med id
 
         //sparar jsvalue för framtid manipulation, samma med jsonObject
 
 
-        ArrayList<Pokemon> pokemons = new ArrayList<>();
+        setPokemons(new ArrayList<>());
 
         for (int i = 0; i<2; i++){
             JsonValue jv = PokeAPI.getRequest(randomId());
@@ -84,6 +94,7 @@ public class GeneratePokemon {
             setJsObject(getJsValue().asObject());
             JsonObject jo = getJsObject().get("species").asObject();
             String name = jo.get("name").asString();
+            System.out.println(name +" " + findSprite() + " " +findMove().getFirst() +" "+findType());
 
             Pokemon egg = new Pokemon (name,findSprite(),findMove(),findType());
             pokemons.add(egg);
@@ -94,10 +105,6 @@ public class GeneratePokemon {
         }
 
 
-
-
-        findType();
-        findMove();
 
     }
 /* //alriks kod

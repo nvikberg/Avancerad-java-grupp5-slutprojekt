@@ -13,6 +13,15 @@ public class GUI {
     static String databaseUrl = "https://pokeapi.co/api/v2/berry/1/";
     ImageIcon frameIcon = new ImageIcon("frameIcon.png");
 
+    public URL getSpriteURL() {
+        return spriteURL;
+    }
+
+    public void setSpriteURL(URL spriteURL) {
+        this.spriteURL = spriteURL;
+    }
+
+    private URL spriteURL;
     GUI() {
         // super();
 
@@ -102,18 +111,20 @@ public class GUI {
         frame.add(buttonFalse);
         frame.add(labelWrongAnswer);
         //frame.add(labelCorrectAnswer);
-        frame.add(name);
-        frame.add(type);
+
 
         new GeneratePokemon();
+        setSpriteURL(GeneratePokemon.getPokemons().getLast().getSpriteURL());
+        name.setText(GeneratePokemon.getPokemons().getLast().getName());
+
 
         //calling for name and type for random pokemon from the Pokemon class into GUI labels
         /*name.setText(GeneratePokemon.getName().toUpperCase());
         type.setText(GeneratePokemon.getType());*/
 
         try {// access the Pokemon sprite image from pokemon class
-            URL imageURL = GeneratePokemon.findSprite();
-            BufferedImage img = ImageIO.read(imageURL);
+
+            BufferedImage img = ImageIO.read(getSpriteURL());
             ImageIcon icon = new ImageIcon(img);
             JLabel sprite = new JLabel();
             sprite.setIcon(icon);
@@ -122,6 +133,8 @@ public class GUI {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+        frame.add(name);
+        frame.add(type);
         frame.setVisible(true);
     }
 }
