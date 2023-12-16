@@ -45,7 +45,7 @@ public class Pokemon {
     }
 
     public void pokemonInfo (){
-        System.out.println(getName() + " has " + getMoveList().getFirst() + " and is " + getTypeList());
+        System.out.println("Pokemon " + getName() + " has " + getMoveList().getFirst() + " and is " + getTypeList());
     }
 
 }
