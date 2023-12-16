@@ -89,8 +89,8 @@ public class GeneratePokemon {
             pokemons.add(egg);
         }
 
-        for (Pokemon s:pokemons){
-            s.pokemonInfo();
+        for (Pokemon poke:pokemons){
+            poke.pokemonInfo();
         }
 
 
