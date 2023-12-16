@@ -122,7 +122,7 @@ public class GUI {
         /*name.setText(GeneratePokemon.getName().toUpperCase());
         type.setText(GeneratePokemon.getType());*/
 
-        try {// access the Pokemon sprite image from pokemon class
+        try {// access the Pokemon sprite image from GeneratePokemon class in pokemons list
 
             BufferedImage img = ImageIO.read(getSpriteURL());
             ImageIcon icon = new ImageIcon(img);
