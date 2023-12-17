@@ -55,14 +55,14 @@ public class Pokemon {
         System.out.println( getName() + " has this move " + getMoveList().getFirst() + " and is this type " + getTypeList());
     }
 
-    //method for asking questions about their abilites , not implemented with AL on buttons in GUI yet, only scanner input
+    //method for asking questions about their moves , not implemented with AL on buttons in GUI yet, only scanner input
     //there are only correct moves as the moment also
     public void moveQuestion () {
-        String move = getMoveList().getFirst();
+        String move = getMoveList().getFirst(); //getting first move from list
         System.out.println("does " + getName() +"have this move? " + move + " type y/n for answer");
         Scanner scanner = new Scanner(System.in);
-        String userResponse =scanner.next();
-        boolean isCorrect = isMoveCorrect(move, userResponse);
+        String userResponse =scanner.next(); //scanner reads user input for now but this will be deleted once implemented with buttons
+        boolean isCorrect = isMoveCorrect(move, userResponse); // calling in boolean method
 
         if(isCorrect){
             System.out.println("correct");
@@ -76,7 +76,6 @@ public class Pokemon {
     //checks if user response is correct and if the move exists in the move list
     private boolean isMoveCorrect(String actualMove, String userResponse) {
         return userResponse.equals("y") && getMoveList().contains(actualMove);
-        // we should be able to use poke.moveQuestions to add questions to each pokemon
     }
 
 }
