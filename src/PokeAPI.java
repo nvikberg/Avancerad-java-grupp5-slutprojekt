@@ -44,8 +44,8 @@ public class PokeAPI {
                 reader.close();
 
                 // Handle the response data
-                System.out.println("Response from Firebase Realtime Database:");
-                System.out.println(response);
+               // System.out.println("Response from Firebase Realtime Database:");
+               // System.out.println(response);
 
                 //get values out from the url data
                 jv= Json.parse(String.valueOf(response));

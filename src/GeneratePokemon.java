@@ -17,59 +17,24 @@ public class GeneratePokemon {
 
     private static JsonObject jsObject;
     private final Random RAND = new Random();
-    private static String name;
-    private static String type;
-    private static String move;
     private JsonValue jsValue;
     static URL imageURL;
 
     public Random getRand() {
         return RAND;
     }
-
-    public static String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public static String getType() {
-        return type;
-    }
-    static boolean userResponse = true;
-
-
-    String[]commonMoves=
-           {"tackle","leer","growl","take down","bite","agility","quick attack", "crunch", "slash","scary face","cut"};
-
-    public void setType(String type) {
-        this.type = type;
-
-    }
-
-    public static String getMove() {
-        return move;
-    }
-
-    public void setMove(String move) {
-        this.move = move;
-    }
-
-    public JsonValue getJsValue() {
+    private JsonValue getJsValue() {
         return jsValue;
     }
-
-    public void setJsValue(JsonValue information) {
+    private void setJsValue(JsonValue information) {
         this.jsValue = information;
     }
 
-    public static JsonObject getJsObject() {
+    private static JsonObject getJsObject() {
         return jsObject;
     }
 
-    public void setJsObject(JsonObject jsObject) {
+    private void setJsObject(JsonObject jsObject) {
         this.jsObject = jsObject;
     }
 
@@ -77,7 +42,7 @@ public class GeneratePokemon {
         return pokemons;
     }
 
-    public void setPokemons(ArrayList<Pokemon> pokemons) {
+    private void setPokemons(ArrayList<Pokemon> pokemons) {
         this.pokemons = pokemons;
     }
 
@@ -101,12 +66,34 @@ public class GeneratePokemon {
             System.out.println(name + " " + findSprite() + " " + findMove().getFirst() + " " + findType());
 
             Pokemon egg = new Pokemon(name, findSprite(), findMove(), findType()); //new pokemon egg with info on name, sprite, move and type
-            pokemons.add(egg); // adding created pokemon egg to pokemons list
+            getPokemons().add(egg); // adding created pokemon egg to pokemons list
+
+            if (getPokemons().size()==2){
+                for (String type:getPokemons().getLast().getTypeList()){
+                    getPokemons().getFirst().getTypeList().remove(type);
+                }
+                if (getPokemons().getFirst().getTypeList().isEmpty()){
+                    getPokemons().remove(getPokemons().getFirst());
+                    i = 0;
+                    continue;
+                }
+                for (String move:getPokemons().getLast().getMoveList()){
+                    getPokemons().getFirst().getMoveList().remove(move);
+                    System.out.println(move + " was removed");
+                    System.out.println(getPokemons().getFirst().getMoveList().toString());
+                }
+                if (getPokemons().getFirst().getMoveList().isEmpty()){
+                    getPokemons().remove(getPokemons().getFirst());
+                    i = 0;
+                }
+
+               /* for (String type:getPokemons().getLast().getMoveList())*/
+            }
         }
 
 
-        PokemonQuestons question = new PokemonQuestons(GeneratePokemon.getPokemons());
-        question.moveQuestion();
+       /* PokemonQuestons question = new PokemonQuestons(getPokemons());
+        question.moveQuestion();*/
 
     }
 
@@ -123,14 +110,8 @@ public class GeneratePokemon {
             String move = (typeObject.get("name").asString());
             moveArrayList.add(move);
         }
-     /*   System.out.println(moveArrayList);*/
+
         return moveArrayList;
-        /*for (String m:commonMoves){
-            if (moveArrayList.contains(m)){
-                moveArrayList.remove(m);
-                System.out.println(m + " Was Removed");
-            }
-        }*/
 
     }
 
@@ -146,6 +127,8 @@ public class GeneratePokemon {
                 for (JsonValue typeValue:typeArray){
                     JsonObject typeObject = typeValue.asObject().get("type").asObject();
                     String type = (typeObject.get("name").asString());
+
+
                     typeArrayList.add(type);
                     /*System.out.println(typeArrayList);*/
                 }
