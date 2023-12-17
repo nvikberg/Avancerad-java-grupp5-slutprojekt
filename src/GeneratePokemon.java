@@ -104,11 +104,9 @@ public class GeneratePokemon {
             pokemons.add(egg); // adding created pokemon egg to pokemons list
         }
 
-        for (Pokemon poke : pokemons) { //iterates through pokemon list
-            poke.pokemonInfo(); //calling method for each pokemon
-            poke.moveQuestion(); //calling method for move question
 
-        }
+        PokemonQuestons question = new PokemonQuestons(GeneratePokemon.getPokemons());
+        question.moveQuestion();
 
     }
 
