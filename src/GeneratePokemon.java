@@ -63,7 +63,6 @@ public class GeneratePokemon {
             setJsObject(getJsValue().asObject());
             JsonObject jo = getJsObject().get("species").asObject();
             String name = jo.get("name").asString();
-            System.out.println(name + " " + findSprite() + " " + findMove().getFirst() + " " + findType());
 
             Pokemon egg = new Pokemon(name, findSprite(), findMove(), findType()); //new pokemon egg with info on name, sprite, move and type
             getPokemons().add(egg); // adding created pokemon egg to pokemons list
@@ -79,18 +78,19 @@ public class GeneratePokemon {
                 }
                 for (String move:getPokemons().getLast().getMoveList()){
                     getPokemons().getFirst().getMoveList().remove(move);
-                    System.out.println(move + " was removed");
-                    System.out.println(getPokemons().getFirst().getMoveList().toString());
+                   // System.out.println(move + " was removed");
+                    //System.out.println(getPokemons().getFirst().getMoveList().toString());
                 }
                 if (getPokemons().getFirst().getMoveList().isEmpty()){
                     getPokemons().remove(getPokemons().getFirst());
                     i = 0;
                 }
 
-               /* for (String type:getPokemons().getLast().getMoveList())*/
+
             }
         }
-
+        getPokemons().getLast().pokemonInfo();
+        getPokemons().getFirst().pokemonInfo();
 
        /* PokemonQuestons question = new PokemonQuestons(getPokemons());
         question.moveQuestion();*/
