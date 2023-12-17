@@ -53,8 +53,7 @@ public class PokeAPI {
                 String s = jo.get("name").asString();
                 System.out.println(s);
 
-            } else { //404 403 402 etc error koder
-                // Handle the error response
+            } else { // Handle the error response
                 System.out.println("Error response code: " + responseCode);
             }
 

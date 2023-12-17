@@ -2,12 +2,14 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.URL;
 
 
-public class GUI {
+public class GUI implements ActionListener {
     JButton buttonTrue, buttonFalse;
     JLabel labelWrongAnswer, labelCorrectAnswer, name, type, labelQuestion, labelHeader;
     static String databaseUrl = "https://pokeapi.co/api/v2/berry/1/";
@@ -22,6 +24,7 @@ public class GUI {
     }
 
     private URL spriteURL;
+
     GUI() {
         // super();
 
@@ -60,7 +63,8 @@ public class GUI {
         labelCorrectAnswer.setBounds(0, 160, 700, 80);
         labelCorrectAnswer.setBackground(new Color(25, 25, 25));
         labelCorrectAnswer.setForeground(new Color(211, 106, 19));
-        labelCorrectAnswer.setHorizontalAlignment(SwingConstants.CENTER);;
+        labelCorrectAnswer.setHorizontalAlignment(SwingConstants.CENTER);
+        ;
 
         name = new JLabel("Pokemon name goes here");
         name.setFont(new Font("Verdana", Font.PLAIN, 18));
@@ -84,6 +88,7 @@ public class GUI {
         buttonTrue.setForeground(new Color(255, 255, 255));
         buttonTrue.setBackground(new Color(30, 29, 29, 255));
         buttonTrue.setBorder(new EtchedBorder());
+        buttonTrue.addActionListener(this);
 
         buttonFalse = new JButton();
         buttonFalse.setBounds(360, 460, 100, 80);
@@ -128,7 +133,7 @@ public class GUI {
             ImageIcon icon = new ImageIcon(img);
             JLabel sprite = new JLabel();
             sprite.setIcon(icon);
-            sprite.setBounds(300,250, 200, 200);
+            sprite.setBounds(300, 250, 200, 200);
             frame.add(sprite);
         } catch (IOException e) {
             System.out.println(e.getMessage());
@@ -136,5 +141,12 @@ public class GUI {
         frame.add(name);
         frame.add(type);
         frame.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == buttonTrue) {
+            //when button1 get clicked this below happens
+        }
     }
 }

@@ -11,6 +11,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 public class GeneratePokemon {
 
@@ -37,8 +38,10 @@ public class GeneratePokemon {
     public static String getType() {
         return type;
     }
+    static boolean userResponse = true;
 
-   String[]commonMoves=
+
+    String[]commonMoves=
            {"tackle","leer","growl","take down","bite","agility","quick attack", "crunch", "slash","scary face","cut"};
 
     public void setType(String type) {
@@ -86,36 +89,28 @@ public class GeneratePokemon {
         //sparar jsvalue för framtid manipulation, samma med jsonObject
 
 
-        setPokemons(new ArrayList<>());
+        setPokemons(new ArrayList<>()); //create new arraylist to store pokemons
 
-        for (int i = 0; i<2; i++){
+        //for loop to get out 2 random pokemons with their sprite, move and type
+        for (int i = 0; i < 2; i++) {
             JsonValue jv = PokeAPI.getRequest(randomId());
             setJsValue(jv);
             setJsObject(getJsValue().asObject());
             JsonObject jo = getJsObject().get("species").asObject();
             String name = jo.get("name").asString();
-            System.out.println(name +" " + findSprite() + " " +findMove().getFirst() +" "+findType());
+            System.out.println(name + " " + findSprite() + " " + findMove().getFirst() + " " + findType());
 
-            Pokemon egg = new Pokemon (name,findSprite(),findMove(),findType());
-            pokemons.add(egg);
+            Pokemon egg = new Pokemon(name, findSprite(), findMove(), findType()); //new pokemon egg with info on name, sprite, move and type
+            pokemons.add(egg); // adding created pokemon egg to pokemons list
         }
 
-        for (Pokemon poke:pokemons){
-            poke.pokemonInfo();
+        for (Pokemon poke : pokemons) { //iterates through pokemon list
+            poke.pokemonInfo(); //calling method for each pokemon
+            poke.moveQuestion(); //calling method for move question
+
         }
-
-
 
     }
-/* //alriks kod
-JsonValue jv = Json.parse(response.toString());
-JsomObject jo = jv.asObject();
-JsonArray ja = jo.get("abilities").asArray();
-JsonObject inne = ja.get(0).asObject();
-String name = inne.getString("name", "no ability");
-sout (name)
- */
-
 
     //makes a jsonvalue for each index of the typeArray.
     // Then that jsonvalue is turned into an object. Inside that object is the type,
