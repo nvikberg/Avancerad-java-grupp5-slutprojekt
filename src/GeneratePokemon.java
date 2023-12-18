@@ -11,7 +11,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Scanner;
 
 public class GeneratePokemon {
 
@@ -92,8 +91,8 @@ public class GeneratePokemon {
         getPokemons().getLast().pokemonInfo();
         getPokemons().getFirst().pokemonInfo();
 
-       /* PokemonQuestons question = new PokemonQuestons(getPokemons());
-        question.moveQuestion();*/
+       //PokemonQuestions question = new PokemonQuestions(getPokemons());
+       //question.moveQuestion();
 
     }
 

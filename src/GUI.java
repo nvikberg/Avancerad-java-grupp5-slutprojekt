@@ -6,11 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
 
 
 public class GUI implements ActionListener {
-    JButton buttonTrue, buttonFalse;
+    static JButton buttonTrue;
+    JButton buttonFalse;
     JLabel labelWrongAnswer, labelCorrectAnswer, name, type, labelQuestion, labelHeader;
     static String databaseUrl = "https://pokeapi.co/api/v2/berry/1/";
     ImageIcon frameIcon = new ImageIcon("frameIcon.png");
@@ -58,13 +60,12 @@ public class GUI implements ActionListener {
         labelWrongAnswer.setForeground(new Color(211, 106, 19));
         labelWrongAnswer.setHorizontalAlignment(SwingConstants.CENTER);
 
-        labelCorrectAnswer = new JLabel("You were correct!");
+        labelCorrectAnswer = new JLabel();
         labelCorrectAnswer.setFont(new Font("Verdana", Font.PLAIN, 16));
         labelCorrectAnswer.setBounds(0, 160, 700, 80);
         labelCorrectAnswer.setBackground(new Color(25, 25, 25));
         labelCorrectAnswer.setForeground(new Color(211, 106, 19));
         labelCorrectAnswer.setHorizontalAlignment(SwingConstants.CENTER);
-        ;
 
         name = new JLabel("Pokemon name goes here");
         name.setFont(new Font("Verdana", Font.PLAIN, 18));
@@ -114,13 +115,19 @@ public class GUI implements ActionListener {
         frame.add(labelQuestion);
         frame.add(buttonTrue);
         frame.add(buttonFalse);
-        frame.add(labelWrongAnswer);
-        //frame.add(labelCorrectAnswer);
+        //frame.add(labelWrongAnswer);
+        frame.add(labelCorrectAnswer);
 
 
         new GeneratePokemon();
         setSpriteURL(GeneratePokemon.getPokemons().getLast().getSpriteURL());
         name.setText(GeneratePokemon.getPokemons().getLast().getName());
+
+        PokemonQuestions question = new PokemonQuestions(GeneratePokemon.getPokemons());
+        labelQuestion.setText(question.moveQuestion());
+
+
+
 
 
         //calling for name and type for random pokemon from the Pokemon class into GUI labels
@@ -146,6 +153,7 @@ public class GUI implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == buttonTrue) {
+            labelCorrectAnswer.setText("You were correct!");
             //when button1 get clicked this below happens
         }
     }

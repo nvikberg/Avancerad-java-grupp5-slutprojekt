@@ -1,7 +1,8 @@
 import java.util.ArrayList;
+import java.util.EventObject;
 import java.util.Scanner;
 
-public class PokemonQuestons {
+public class PokemonQuestions {
     private ArrayList<Pokemon> getPokemons() {
         return pokemons;
     }
@@ -23,7 +24,7 @@ public class PokemonQuestons {
     private Pokemon truePokemon;
     private Pokemon falsePokemon;
     private ArrayList<Pokemon> pokemons;
-    PokemonQuestons(ArrayList<Pokemon> pokemons){
+    PokemonQuestions(ArrayList<Pokemon> pokemons){
         setPokemons(pokemons);
         setTruePokemon(getPokemons().getLast());
         setFalsePokemon(getPokemons().getFirst());
@@ -31,13 +32,18 @@ public class PokemonQuestons {
 
     //method for asking questions about their moves , not implemented with AL on buttons in GUI yet, only scanner input
     //there are only correct moves as the moment also
-    public void moveQuestion () {
-        String move =getTruePokemon().getMoveList().getFirst(); //getting first move from list
+    public String moveQuestion () {
+        String move = getTruePokemon().getMoveList().getFirst().toUpperCase(); //getting first move from list
 
-        System.out.println(getTruePokemon().getName() +"have this move? " + move + " type y/n for answer");
-        Scanner scanner = new Scanner(System.in);
-        String userResponse =scanner.next(); //scanner reads user input for now but this will be deleted once implemented with buttons
+
+        String questionMove = ("True or False, does " + getTruePokemon().getName() +" have this move: " + move + " ?");
+
+       // Scanner scanner = new Scanner(System.in);
+
+       String userResponse = ""; //scanner reads user input for now but this will be deleted once implemented with buttons
+       
         boolean isCorrect = isMoveCorrect(move, userResponse); // calling in boolean method
+
 
         if(isCorrect){
             System.out.println("correct");
@@ -46,6 +52,8 @@ public class PokemonQuestons {
         }
 
 
+        //return move;
+        return questionMove;
     }
 
     //checks if user response is correct and if the move exists in the move list
