@@ -28,6 +28,14 @@ public class PokemonQuestions {
         setPokemons(pokemons);
         setTruePokemon(getPokemons().getFirst());
         setFalsePokemon(getPokemons().getLast());
+        int i= 0;
+
+        if (i==1){
+            trueQuestions();
+        }
+        else {
+            falseQuestions();
+        }
     }
 
     //method for asking questions about their moves , not implemented with AL on buttons in GUI yet, only scanner input
@@ -42,6 +50,30 @@ public class PokemonQuestions {
 
        String userResponse = ""; //scanner reads user input for now but this will be deleted once implemented with buttons
        
+        boolean isCorrect = isMoveCorrect(move, userResponse); // calling in boolean method
+
+
+        if(isCorrect){
+            System.out.println("correct");
+        } else{
+            System.out.println("incorrect");
+        }
+
+
+        //return move;
+        return questionMove;
+    }
+
+    public String falseQuestions () {
+        String move = getTruePokemon().getMoveList().getFirst().toUpperCase(); //getting first move from list
+
+
+        String questionMove = ("True or False, does " + getTruePokemon().getName() +" have this move: " + move + " ?");
+
+        // Scanner scanner = new Scanner(System.in);
+
+        String userResponse = ""; //scanner reads user input for now but this will be deleted once implemented with buttons
+
         boolean isCorrect = isMoveCorrect(move, userResponse); // calling in boolean method
 
 
