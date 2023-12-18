@@ -67,29 +67,29 @@ public class GeneratePokemon {
             getPokemons().add(egg); // adding created pokemon egg to pokemons list
 
             if (getPokemons().size()==2){
-                for (String type:getPokemons().getLast().getTypeList()){
-                    getPokemons().getFirst().getTypeList().remove(type);
+                for (String type:getPokemons().getFirst().getTypeList()){
+                    getPokemons().getLast().getTypeList().remove(type);
                 }
-                if (getPokemons().getFirst().getTypeList().isEmpty()){
-                    getPokemons().remove(getPokemons().getFirst());
+                if (getPokemons().getLast().getTypeList().isEmpty()){
+                    getPokemons().remove(getPokemons().getLast());
                     i = 0;
                     continue;
                 }
-                for (String move:getPokemons().getLast().getMoveList()){
-                    getPokemons().getFirst().getMoveList().remove(move);
+                for (String move:getPokemons().getFirst().getMoveList()){
+                    getPokemons().getLast().getMoveList().remove(move);
                    // System.out.println(move + " was removed");
                     //System.out.println(getPokemons().getFirst().getMoveList().toString());
                 }
-                if (getPokemons().getFirst().getMoveList().isEmpty()){
-                    getPokemons().remove(getPokemons().getFirst());
+                if (getPokemons().getLast().getMoveList().isEmpty()){
+                    getPokemons().remove(getPokemons().getLast());
                     i = 0;
                 }
 
 
             }
         }
-        getPokemons().getLast().pokemonInfo();
         getPokemons().getFirst().pokemonInfo();
+        getPokemons().getLast().pokemonInfo();
 
        //PokemonQuestions question = new PokemonQuestions(getPokemons());
        //question.moveQuestion();

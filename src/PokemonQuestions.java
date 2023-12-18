@@ -26,13 +26,13 @@ public class PokemonQuestions {
     private ArrayList<Pokemon> pokemons;
     PokemonQuestions(ArrayList<Pokemon> pokemons){
         setPokemons(pokemons);
-        setTruePokemon(getPokemons().getLast());
-        setFalsePokemon(getPokemons().getFirst());
+        setTruePokemon(getPokemons().getFirst());
+        setFalsePokemon(getPokemons().getLast());
     }
 
     //method for asking questions about their moves , not implemented with AL on buttons in GUI yet, only scanner input
     //there are only correct moves as the moment also
-    public String moveQuestion () {
+    public String trueQuestions () {
         String move = getTruePokemon().getMoveList().getFirst().toUpperCase(); //getting first move from list
 
 

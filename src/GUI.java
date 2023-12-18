@@ -120,11 +120,11 @@ public class GUI implements ActionListener {
 
 
         new GeneratePokemon();
-        setSpriteURL(GeneratePokemon.getPokemons().getLast().getSpriteURL());
-        name.setText(GeneratePokemon.getPokemons().getLast().getName());
+        setSpriteURL(GeneratePokemon.getPokemons().getFirst().getSpriteURL());
+        name.setText(GeneratePokemon.getPokemons().getFirst().getName());
 
         PokemonQuestions question = new PokemonQuestions(GeneratePokemon.getPokemons());
-        labelQuestion.setText(question.moveQuestion());
+        //labelQuestion.setText(question.moveQuestion());
 
 
 
