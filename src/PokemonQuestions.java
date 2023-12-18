@@ -1,6 +1,5 @@
 import java.util.ArrayList;
-import java.util.EventObject;
-import java.util.Scanner;
+import java.util.Random;
 
 public class PokemonQuestions {
     private ArrayList<Pokemon> getPokemons() {
@@ -24,7 +23,24 @@ public class PokemonQuestions {
     private Pokemon truePokemon;
     private Pokemon falsePokemon;
     private ArrayList<Pokemon> pokemons;
-    PokemonQuestions(ArrayList<Pokemon> pokemons){
+
+    public Random getRand() {
+        return rand;
+    }
+
+
+    public Boolean getTrueOrFalse() {
+        return trueOrFalse;
+    }
+
+    public void setTrueOrFalse(Boolean trueOrFalse) {
+        this.trueOrFalse = trueOrFalse;
+    }
+
+    Boolean trueOrFalse;
+
+    private Random rand;
+    PokemonQuestions (ArrayList<Pokemon> pokemons){
         setPokemons(pokemons);
         setTruePokemon(getPokemons().getFirst());
         setFalsePokemon(getPokemons().getLast());
@@ -36,6 +52,7 @@ public class PokemonQuestions {
         else {
             falseQuestions();
         }
+        return trueOrFalse;
     }
 
     //method for asking questions about their moves , not implemented with AL on buttons in GUI yet, only scanner input
@@ -64,28 +81,14 @@ public class PokemonQuestions {
         return questionMove;
     }
 
-    public String falseQuestions () {
-        String move = getTruePokemon().getMoveList().getFirst().toUpperCase(); //getting first move from list
+    public boolean falseQuestions () {
 
-
-        String questionMove = ("True or False, does " + getTruePokemon().getName() +" have this move: " + move + " ?");
-
-        // Scanner scanner = new Scanner(System.in);
-
-        String userResponse = ""; //scanner reads user input for now but this will be deleted once implemented with buttons
-
-        boolean isCorrect = isMoveCorrect(move, userResponse); // calling in boolean method
-
-
-        if(isCorrect){
-            System.out.println("correct");
-        } else{
-            System.out.println("incorrect");
-        }
-
-
-        //return move;
-        return questionMove;
+        int randomNumb = getRand().nextInt(getFalsePokemon().getMoveList().size());
+        String type = getFalsePokemon().getTypeList().getFirst().toUpperCase();
+        String move = getFalsePokemon().getMoveList().get(randomNumb).toUpperCase();
+        String falseType = (getFalsePokemon().getName().toUpperCase() + " is a " + type + " type");
+        String falseMove = (getFalsePokemon().getName().toUpperCase() + " has " + move  + " type");
+        return false;
     }
 
     //checks if user response is correct and if the move exists in the move list

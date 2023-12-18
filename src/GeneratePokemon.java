@@ -62,24 +62,33 @@ public class GeneratePokemon {
             setJsObject(getJsValue().asObject());
             JsonObject jo = getJsObject().get("species").asObject();
             String name = jo.get("name").asString();
-
-            Pokemon egg = new Pokemon(name, findSprite(), findMove(), findType()); //new pokemon egg with info on name, sprite, move and type
+            //new pokemon egg with info on name, sprite, move and type
+            Pokemon egg = new Pokemon(name, findSprite(), findMove(), findType());
             getPokemons().add(egg); // adding created pokemon egg to pokemons list
 
+            //Checks the pokemon list size
             if (getPokemons().size()==2){
+                // goes through the first pokemon types
                 for (String type:getPokemons().getFirst().getTypeList()){
+                    //the type is removed from the last pokemons type list
                     getPokemons().getLast().getTypeList().remove(type);
+
                 }
+                //if the last pokemon type list is empty,removes that pokemon and starts over the loop
                 if (getPokemons().getLast().getTypeList().isEmpty()){
+
                     getPokemons().remove(getPokemons().getLast());
                     i = 0;
                     continue;
                 }
+                //goes through the first pokemon moves
                 for (String move:getPokemons().getFirst().getMoveList()){
+                    //removes that move if it's in the last pokemon move list
                     getPokemons().getLast().getMoveList().remove(move);
                    // System.out.println(move + " was removed");
                     //System.out.println(getPokemons().getFirst().getMoveList().toString());
                 }
+                //if the last pokemon move list is empty,removes that pokemon and starts over the loop
                 if (getPokemons().getLast().getMoveList().isEmpty()){
                     getPokemons().remove(getPokemons().getLast());
                     i = 0;
@@ -101,6 +110,7 @@ public class GeneratePokemon {
     // so we extract the type and then find its name and put it in a string,
     // that String is then put into a list
     public ArrayList<String> findMove() { //method for finding Abilites in pokemon from json
+        //makes a new empty String ArrayList
         ArrayList<String> moveArrayList = new ArrayList<>();
         JsonArray moveArray = getJsObject().get("moves").asArray(); //retriving object to array
 
