@@ -9,7 +9,7 @@ public class PokemonQuestions {
     private Boolean trueOrFalse; //statement true or false
     private String currentQuestion;
     private boolean correctAnswer; //to store the correct answer
-    private Random rand;
+    private Random rand = new Random();
 
     /* PokemonQuestions class is to ask true or false questions about Pokemon attributes
      *
@@ -48,79 +48,65 @@ public class PokemonQuestions {
     public void setTrueOrFalse(Boolean trueOrFalse) {
         this.trueOrFalse = trueOrFalse;
     }
-    public boolean getCorrectAnswer(){
-        return correctAnswer;
+
+    public ArrayList<String> getQuestionList() {
+        return questionList;
     }
 
-    PokemonQuestions(ArrayList<Pokemon> pokemons) {
-        setPokemons(pokemons);
-        setTruePokemon(getPokemons().get(0)); //sets true pokemon as first one in the list
-        setFalsePokemon(getPokemons().get(getPokemons().size() - 1)); //sets false pokemon as last one in the list
-        rand = new Random(); //initiallize rand object
-        int i = 0;
+    private void setQuestionList(ArrayList<String> questionList) {
+        this.questionList = questionList;
+    }
 
-        randomQuestion();
+    ArrayList<String> questionList = new ArrayList<>();
+
+      PokemonQuestions(ArrayList<Pokemon> pokemons) {
+          //Saves pokemon list
+        setPokemons(pokemons);
+        //saves the pokemon that the user will see
+        setTruePokemon(getPokemons().getFirst());
+        //saves the pokemon that will be used to lie to the user
+        setFalsePokemon(getPokemons().getLast());
+        //saves a random number between 1 and 0
+        int randomNumb = getRand().nextInt(2);
+        System.out.println("RANDOM " + randomNumb);
+        //if the number is 1 then it is a true statement and
+          // the questions will be based on the pokemon that the users see
+          //otherwise it will be false and the questions will be based around the other pokemon 
+        if (randomNumb ==1){
+
+            randomQuestion(getTruePokemon());
+            setTrueOrFalse(true);
+        }
+
+        else
+        {
+            randomQuestion(getFalsePokemon());
+            setTrueOrFalse(false);
+        }
+
+
     }
     //method to get random question from true question/false question methods
     //issue because url and name dont follow random so question is only correct sometimes, actually using this as the game now
-    public String randomQuestion() {
-        Random rand = getRand();
-        int randomNumb = rand.nextInt(getPokemons().size());
-        Pokemon randomPokemon = getPokemons().get(randomNumb);
+    public void randomQuestion(Pokemon pokemon) {
+          //randomize a number using the type size same for moveNumber
+        int typeNumber = getRand().nextInt(pokemon.getTypeList().size());
+        int moveNumber = getRand().nextInt(pokemon.getMoveList().size());
+        //Always saves the pokemon name that the user will see,
+        String name = getTruePokemon().getName();
+        //gets a type using the number from typeNumber. Same for move
+        String type =pokemon.getTypeList().get(typeNumber);
+        String move = pokemon.getMoveList().get(moveNumber);
+        //questions using the strings above
+        String moveQuestion = (name + " can use  " +  move + " move");
+        String typeQuestion = (name + " is a " + type + " type");
+        //saves the questions in a list
+        getQuestionList().add(moveQuestion);
+        getQuestionList().add(typeQuestion);
 
-        // Use randomPokemon to generate your question
-        if (rand.nextBoolean()) {
-            return trueQuestions(randomPokemon);
-        } else {
-            return falseQuestions(randomPokemon);
-        }
+        System.out.println(getQuestionList());
+        pokemon.pokemonInfo();
+
     }
 
-    public boolean isAnswerCorrect() {
-        return correctAnswer;
-    }
-    public String getCurrentQuestion(){
-        return currentQuestion;
-    }
-
-
-/*
-        Random rand = getRand();
-        int randomNumb = rand.nextInt(2); // 0 is true and 1 is false
-        if (randomNumb == 0) {
-            return trueQuestions(); //if random generates 0 it returns trueQuestion
-        } else
-            return falseQuestions();//if random generates 1 it returns falsequestion
-*/
-
-      /* *//**//* public String randomQuestion() {
-            Random rand = getRand();
-            int randomNumb = rand.nextInt(2); // 0 is true and 1 is false
-            if (randomNumb == 0) {
-                return trueQuestions(); //if random generates 0 it returns trueQuestion
-            } else
-                return falseQuestions();//if random generates 1 it returns falsequestion
-*/
-
-    //method for asking questions about their moves , not implemented with AL on buttons in GUI yet, only scanner input
-    private String trueQuestions (Pokemon pokemon) {
-        int random = getRand().nextInt(getTruePokemon().getTypeList().size());
-        String type = getTruePokemon().getTypeList().getFirst().toUpperCase();
-       //String move = getTruePokemon().getMoveList().get(randomNumb).toUpperCase();
-        correctAnswer = true;
-        return "Is this " + getTruePokemon().getName() + " and is he a " + type + " type?";
-     }
-
-    private String falseQuestions (Pokemon pokemon) {
-        int random = getRand().nextInt(getFalsePokemon().getTypeList().size());
-        String type = getFalsePokemon().getTypeList().getLast().toUpperCase();
-       // String move = getFalsePokemon().getMoveList().get(randomNumb).toUpperCase();
-        correctAnswer = false;
-        return "Is this " + getFalsePokemon().getName() + " and is he a " + type + " type?";
-    }
-
-        //checks if user response is correct and if the move exists in the move list
-    //private boolean isMoveCorrect(String actualMove, String userResponse) {
-    //return userResponse.equals("y") && getTruePokemon().getMoveList().contains(actualMove);
-    // }
 }

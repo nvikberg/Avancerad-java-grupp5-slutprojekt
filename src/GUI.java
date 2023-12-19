@@ -194,7 +194,7 @@ public class GUI implements ActionListener {
 
         frame.setVisible(true);
         nextQuestion(); // Set up the initial question
-        pause.start(); // Start the timer for question change
+        //pause.start(); // Start the timer for question change
         // frame.add(name);
 
     }
@@ -203,9 +203,9 @@ public class GUI implements ActionListener {
     public void nextQuestion() {
         Pokemon currentPokemon = pokemonQuestions.getTruePokemon();
         // GeneratePokemon.getPokemons().getFirst();
-        String question = pokemonQuestions.randomQuestion();
-        labelQuestion.setText(question);
-        pause.start();
+       // String question = pokemonQuestions.randomQuestion();
+       // labelQuestion.setText(question);
+       // pause.start();
         updateSprite(currentPokemon);
 
 
@@ -255,7 +255,7 @@ public class GUI implements ActionListener {
     }
 
     //timer to change questions
-    Timer pause = new Timer(2000, new ActionListener() {
+   /* Timer pause = new Timer(2000, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             seconds = 10;
@@ -269,7 +269,7 @@ public class GUI implements ActionListener {
 
             nextQuestion(); //call method for new question
         }
-    });
+    });*/
 
      // pause.setRepeats(false); //timer only goes once
 
@@ -293,7 +293,7 @@ public class GUI implements ActionListener {
     //method for displaying result in the end
     public void results(){
         labelScore.setText("Score " + correct_guesses + " /" + total_questions + " correct guesses");
-        pause.stop();
+        //pause.stop();
     }
 
 }

@@ -15,7 +15,7 @@ import java.util.Random;
 public class GeneratePokemon {
 
     private static JsonObject jsObject;
-    private final Random RAND = new Random();
+    private Random RAND = new Random();
     private JsonValue jsValue;
     static URL imageURL;
 
