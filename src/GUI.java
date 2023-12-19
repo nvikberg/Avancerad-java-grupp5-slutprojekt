@@ -181,21 +181,6 @@ public class GUI implements ActionListener {
         frame.add(labelCorrectAnswer);
 
 
-
-        new GeneratePokemon();
-        PokemonQuestions question = new PokemonQuestions(GeneratePokemon.getPokemons());
-        currentPokemon = question.getTruePokemon();
-        setSpriteURL(GeneratePokemon.getPokemons().getFirst().getSpriteURL());
-
-
-
-
-
-        // name.setText(pokemonName);
-
-
-
-
         newPokemon();
         frame.add(getSpriteLabel());
         frame.add(labelQuestion);
@@ -212,7 +197,7 @@ public class GUI implements ActionListener {
 
     public void newPokemon(){
         new GeneratePokemon();
-          question = new PokemonQuestions(GeneratePokemon.getPokemons());
+         question = new PokemonQuestions(GeneratePokemon.getPokemons());
         currentPokemon = question.getTruePokemon();
         setSpriteURL(GeneratePokemon.getPokemons().getFirst().getSpriteURL());
 
@@ -237,8 +222,8 @@ public class GUI implements ActionListener {
 
     public void reset(){
         newPokemon();
-        frame.setVisible(true);
         labelCorrectAnswer.setText("");
+        frame.setVisible(true);
     }
 
     //method for next question //NOT FUNCTIONING CORRECT
