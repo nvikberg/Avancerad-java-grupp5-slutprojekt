@@ -42,11 +42,11 @@ public class GeneratePokemon {
         return pokemons;
     }
 
-    private void setPokemons(ArrayList<Pokemon> pokemons) {
+    public void setPokemons(ArrayList<Pokemon> pokemons) {
         this.pokemons = pokemons;
     }
 
-    private static ArrayList<Pokemon> pokemons;
+    public static ArrayList<Pokemon> pokemons;
 
     GeneratePokemon() {
         // exempel på hur man kan använda Jsonvalue nu med id
@@ -99,6 +99,8 @@ public class GeneratePokemon {
             }
         }
         getPokemons().getFirst().pokemonInfo();
+        getPokemons().getLast().pokemonInfo();
+
         //getPokemons().getLast().pokemonInfo();
 
 

@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Scanner;
 
 
 public class GUI implements ActionListener {
@@ -25,6 +27,9 @@ public class GUI implements ActionListener {
     public void setSpriteURL(URL spriteURL) {
         this.spriteURL = spriteURL;
     }
+    public JLabel getSpriteLabel() {
+        return spriteLabel;
+    }
 
     private URL spriteURL;
 
@@ -33,7 +38,12 @@ public class GUI implements ActionListener {
     int result;
     int seconds = 10;
     String answer;
+    JFrame frame = new JFrame();
+
+
+    private JLabel spriteLabel = new JLabel();
     Pokemon currentPokemon;
+    PokemonQuestions question;
     //private PokemonQuestions pokemonQuestions;
 
    /* Timer pause = new Timer(1000, new ActionListener() {
@@ -52,7 +62,7 @@ public class GUI implements ActionListener {
     GUI() {
         // super();
 
-        JFrame frame = new JFrame();
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //fonstret stangs
         frame.setTitle("Pokemon Quiz");
         frame.setLayout(null);
@@ -171,33 +181,64 @@ public class GUI implements ActionListener {
         frame.add(labelCorrectAnswer);
 
 
+
         new GeneratePokemon();
         PokemonQuestions question = new PokemonQuestions(GeneratePokemon.getPokemons());
         currentPokemon = question.getTruePokemon();
         setSpriteURL(GeneratePokemon.getPokemons().getFirst().getSpriteURL());
 
+
+
+
+
         // name.setText(pokemonName);
+
+
+
+
+        newPokemon();
+        frame.add(getSpriteLabel());
+        frame.add(labelQuestion);
+        frame.setVisible(true);
+        Scanner scan = new Scanner(System.in);
+        System.out.println(GeneratePokemon.getPokemons().toString());
+        String u = scan.nextLine();
+        reset();
+        //nextQuestion(); // Set up the initial question
+        //pause.start(); // Start the timer for question change
+        // frame.add(name);
+
+    }
+
+    public void newPokemon(){
+        new GeneratePokemon();
+          question = new PokemonQuestions(GeneratePokemon.getPokemons());
+        currentPokemon = question.getTruePokemon();
+        setSpriteURL(GeneratePokemon.getPokemons().getFirst().getSpriteURL());
+
+        labelQuestion.setText("True or false! " + question.randomQuestion());
+        pokemonSpirte();
+    }
+
+    public void pokemonSpirte(){
 
         try {// access the Pokemon sprite image from GeneratePokemon class in pokemons list
 
             BufferedImage img = ImageIO.read(getSpriteURL());
             ImageIcon icon = new ImageIcon(img);
-            JLabel sprite = new JLabel();
-            sprite.setIcon(icon);
-            sprite.setBounds(300, 250, 200, 200);
-            frame.add(sprite);
+
+            getSpriteLabel().setIcon(icon);
+            getSpriteLabel().setBounds(300, 250, 200, 200);
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
 
-        labelQuestion.setText(question.randomQuestion());
-        frame.add(labelQuestion);
+    public void reset(){
+        newPokemon();
         frame.setVisible(true);
-        //nextQuestion(); // Set up the initial question
-        //pause.start(); // Start the timer for question change
-        // frame.add(name);
-
+        labelCorrectAnswer.setText("");
     }
 
     //method for next question //NOT FUNCTIONING CORRECT
@@ -276,8 +317,8 @@ public class GUI implements ActionListener {
 
     //for changing colors when pressed, green correct and red wrong
     private void buttonPress(boolean userAnswer) {
-        PokemonQuestions pokemonQuestions = new PokemonQuestions(GeneratePokemon.getPokemons());
-        if (pokemonQuestions.getTrueOrFalse() == userAnswer) { //get true or false method from PQ class
+
+        if (question.getTrueOrFalse() == userAnswer) { //get true or false method from PQ class
             // buttonTrue.setBackground(new Color(0, 200, 0));
             //pause.stop();
             correct_guesses++;
