@@ -269,8 +269,10 @@ public class GUI implements ActionListener {
             buttonPress(true);
 
 
+
         } else if (clickedButton == buttonFalse) {
             buttonPress(false);
+
 
         } else if (clickedButton == buttonEndGame) {
             results();
