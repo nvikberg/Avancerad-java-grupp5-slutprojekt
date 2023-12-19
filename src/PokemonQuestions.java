@@ -118,7 +118,7 @@ public class PokemonQuestions {
         correctAnswer = false;
         return "Is this " + getFalsePokemon().getName() + " and is he a " + type + " type?";
     }
-    
+
         //checks if user response is correct and if the move exists in the move list
     //private boolean isMoveCorrect(String actualMove, String userResponse) {
     //return userResponse.equals("y") && getTruePokemon().getMoveList().contains(actualMove);
