@@ -8,12 +8,13 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URL;
+import java.util.ArrayList;
 
 
 public class GUI implements ActionListener {
-    static JButton buttonTrue;
-    JButton buttonFalse;
-    JLabel labelWrongAnswer, labelCorrectAnswer, name, type, labelQuestion, labelHeader;
+    JButton buttonTrue, buttonFalse, buttonEndGame;
+    JLabel labelWrongAnswer, labelCorrectAnswer, name, type, labelQuestion, labelHeader, labelTime,
+            labelSeconds, labelScore, labelSecondsLeft;
     static String databaseUrl = "https://pokeapi.co/api/v2/berry/1/";
     ImageIcon frameIcon = new ImageIcon("frameIcon.png");
 
@@ -26,6 +27,27 @@ public class GUI implements ActionListener {
     }
 
     private URL spriteURL;
+
+    int correct_guesses = 0;
+    int total_questions = 0;
+    int result;
+    int seconds = 10;
+    String answer;
+
+    private PokemonQuestions pokemonQuestions;
+
+   /* Timer pause = new Timer(1000, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            seconds--;//after each second its subracting 1
+            labelSeconds.setText(String.valueOf(seconds)); //display
+            if (seconds <= 0) { //if timer runs out display will
+                results();
+
+            }
+        }
+    });*/
+
 
     GUI() {
         // super();
@@ -46,19 +68,35 @@ public class GUI implements ActionListener {
         labelHeader.setHorizontalAlignment(SwingConstants.CENTER);
         labelHeader.setForeground(new Color(194, 170, 13));
 
+        labelSeconds = new JLabel();
+        labelSeconds.setBounds(500, 470, 100, 100);
+        labelSeconds.setForeground(new Color(125, 25, 25));
+        labelSeconds.setFont(new Font("Verdana", Font.PLAIN, 25));
+        // labelSeconds.setOpaque(true);
+        labelSeconds.setText(String.valueOf(seconds));
+        labelSeconds.setHorizontalAlignment(SwingConstants.CENTER);
+
+
+        labelTime = new JLabel();
+        labelTime.setBounds(500, 420, 100, 100);
+        labelTime.setForeground(new Color(205, 25, 25));
+        labelTime.setFont(new Font("Verdana", Font.PLAIN, 25));
+        labelTime.setText("TIMER");
+        labelTime.setHorizontalAlignment(SwingConstants.CENTER);
+
+        labelScore = new JLabel();
+        labelScore.setBounds(0, 200, 700, 100);
+        labelScore.setBackground(new Color(0, 0, 0));
+        labelScore.setForeground(new Color(250, 250, 250));
+        labelScore.setFont(new Font("Verdana", Font.PLAIN, 25));
+        labelScore.setHorizontalAlignment(SwingConstants.CENTER);
+
         labelQuestion = new JLabel("Quiz questions will pop up here"); //this can hold quiz question
         labelQuestion.setFont(new Font("Sans", Font.BOLD, 18));
         labelQuestion.setBounds(0, 100, 700, 80);
         labelQuestion.setBackground(new Color(25, 25, 25));
         labelQuestion.setForeground(new Color(222, 194, 24));
         labelQuestion.setHorizontalAlignment(SwingConstants.CENTER);
-
-        labelWrongAnswer = new JLabel("Evil insults/correct answer here");
-        labelWrongAnswer.setFont(new Font("Verdana", Font.PLAIN, 16));
-        labelWrongAnswer.setBounds(0, 130, 700, 80);
-        labelWrongAnswer.setBackground(new Color(25, 25, 25));
-        labelWrongAnswer.setForeground(new Color(211, 106, 19));
-        labelWrongAnswer.setHorizontalAlignment(SwingConstants.CENTER);
 
         labelCorrectAnswer = new JLabel();
         labelCorrectAnswer.setFont(new Font("Verdana", Font.PLAIN, 16));
@@ -99,6 +137,17 @@ public class GUI implements ActionListener {
         buttonFalse.setForeground(new Color(255, 255, 255));
         buttonFalse.setBackground(new Color(30, 29, 29, 255));
         buttonFalse.setBorder(new EtchedBorder());
+        buttonFalse.addActionListener(this);
+
+        buttonEndGame = new JButton();
+        buttonEndGame.setBounds(300, 560, 100, 50);
+        buttonEndGame.setFocusable(false);
+        buttonEndGame.setFont(new Font("Verdana", Font.BOLD, 14));
+        buttonEndGame.setText("End Game");
+        buttonEndGame.setForeground(new Color(255, 255, 255));
+        buttonEndGame.setBackground(new Color(30, 29, 29, 255));
+        buttonEndGame.setBorder(new EtchedBorder());
+        buttonEndGame.addActionListener(this);
 
 /*
         textField.setBackground(new Color(10,100,0));
@@ -111,28 +160,24 @@ public class GUI implements ActionListener {
             }
         });
 */
+        frame.add(labelScore);
         frame.add(labelHeader);
+        frame.add(labelSeconds);
+        frame.add(labelTime);
         frame.add(labelQuestion);
         frame.add(buttonTrue);
         frame.add(buttonFalse);
-        //frame.add(labelWrongAnswer);
+        frame.add(buttonEndGame);
         frame.add(labelCorrectAnswer);
-
+        //frame.add(type);
+        //frame.add(name);
 
         new GeneratePokemon();
         setSpriteURL(GeneratePokemon.getPokemons().getFirst().getSpriteURL());
-        name.setText(GeneratePokemon.getPokemons().getFirst().getName());
+        String pokemonName = GeneratePokemon.getPokemons().getFirst().getName();
+        // name.setText(pokemonName);
 
-        PokemonQuestions question = new PokemonQuestions(GeneratePokemon.getPokemons());
-        //labelQuestion.setText(question.moveQuestion());
-
-
-
-
-
-        //calling for name and type for random pokemon from the Pokemon class into GUI labels
-        /*name.setText(GeneratePokemon.getName().toUpperCase());
-        type.setText(GeneratePokemon.getType());*/
+        pokemonQuestions = new PokemonQuestions(GeneratePokemon.getPokemons());
 
         try {// access the Pokemon sprite image from GeneratePokemon class in pokemons list
 
@@ -142,19 +187,117 @@ public class GUI implements ActionListener {
             sprite.setIcon(icon);
             sprite.setBounds(300, 250, 200, 200);
             frame.add(sprite);
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        frame.add(name);
-        frame.add(type);
+
         frame.setVisible(true);
+        nextQuestion(); // Set up the initial question
+        pause.start(); // Start the timer for question change
+        // frame.add(name);
+
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == buttonTrue) {
-            labelCorrectAnswer.setText("You were correct!");
-            //when button1 get clicked this below happens
+    //method for next question //NOT FUNCTIONING CORRECT
+    public void nextQuestion() {
+        Pokemon currentPokemon = pokemonQuestions.getTruePokemon();
+        // GeneratePokemon.getPokemons().getFirst();
+        String question = pokemonQuestions.randomQuestion();
+        labelQuestion.setText(question);
+        pause.start();
+        updateSprite(currentPokemon);
+
+
+        System.out.println(currentPokemon);
+        // name.setText(currentPokemon.getName());
+        // type.setText(currentPokemon.getTypeList().toString());
+
+    }
+
+    //to update sprite photo for each question //NOT FUNCTIONING CORRECT
+    private void updateSprite(Pokemon pokemon) {
+        try {
+            BufferedImage img = ImageIO.read(pokemon.getSpriteURL());
+            ImageIcon icon = new ImageIcon(img);
+
+            //sprite.setIcon(icon);
+
+            System.out.println(pokemon.getSpriteURL());
+
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
     }
+
+    //implementing action listneres for buttons, having issues reaching false button
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        buttonTrue.setEnabled(false);
+        buttonFalse.setEnabled(false);
+
+        JButton clickedButton = (JButton) e.getSource();
+
+        if (clickedButton == buttonTrue) {
+            buttonPress(buttonTrue);
+           // pause.stop();
+
+        } else if (clickedButton == buttonFalse) {
+            buttonPress(buttonFalse);
+          //  pause.stop();
+
+        } else if (clickedButton == buttonEndGame) {
+            results();
+        }
+
+        //nextQuestion(); //call method for new question
+
+    }
+
+    //timer to change questions
+    Timer pause = new Timer(2000, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            seconds = 10;
+            labelSeconds.setText(String.valueOf(seconds));
+
+            buttonTrue.setBackground(new Color(30, 29, 29, 255));
+            buttonFalse.setBackground(new Color(30, 29, 29, 255));
+
+            buttonTrue.setEnabled(true);
+            buttonFalse.setEnabled(true);
+
+            nextQuestion(); //call method for new question
+        }
+    });
+
+     // pause.setRepeats(false); //timer only goes once
+
+
+    //for changing colors when pressed, green correct and red wrong
+    private void buttonPress(JButton button) {
+        if (pokemonQuestions.isAnswerCorrect()) {
+            button.setBackground(new Color(0, 200, 0));
+            //pause.stop();
+            correct_guesses++;
+            //labelCorrectAnswer.setText("You were correct!");
+        } else {
+            button.setBackground(new Color(250, 0, 0));
+            //labelCorrectAnswer.setText("That's wrong!");
+            //pause.stop();
+
+        }
+        total_questions++;  //counter for total guesses
+    }
+
+    //method for displaying result in the end
+    public void results(){
+        labelScore.setText("Score " + correct_guesses + " /" + total_questions + " correct guesses");
+        pause.stop();
+    }
+
 }
+
+
+
+
