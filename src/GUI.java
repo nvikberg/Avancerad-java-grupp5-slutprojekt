@@ -223,6 +223,10 @@ public class GUI implements ActionListener {
     public void reset(){
         newPokemon();
         labelCorrectAnswer.setText("");
+        buttonTrue.setBackground(new Color(30, 29, 29, 255));
+        buttonFalse.setBackground(new Color(30, 29, 29, 255));
+        buttonTrue.setEnabled(true);
+        buttonFalse.setEnabled(true);
         frame.setVisible(true);
     }
 
@@ -275,6 +279,9 @@ public class GUI implements ActionListener {
 
 
         } else if (clickedButton == buttonEndGame) {
+            buttonTrue.setEnabled(false);
+            buttonFalse.setEnabled(false);
+
             results();
         }
 
@@ -304,20 +311,43 @@ public class GUI implements ActionListener {
 
     //for changing colors when pressed, green correct and red wrong
     private void buttonPress(boolean userAnswer) {
+        buttonTrue.setEnabled(false);
+        buttonFalse.setEnabled(false);
 
         if (question.getTrueOrFalse() == userAnswer) { //get true or false method from PQ class
-            // buttonTrue.setBackground(new Color(0, 200, 0));
-            //pause.stop();
+            buttonTrue.setBackground(new Color(0, 200, 0));
             correct_guesses++;
             labelCorrectAnswer.setText("You were correct!");
+
         } else {
-            //  buttonFalse.setBackground(new Color(250, 0, 0));
+            buttonFalse.setBackground(new Color(250, 0, 0));
             labelCorrectAnswer.setText("That's wrong!");
-            //pause.stop();
+            // pause.stop();
 
         }
         total_questions++;  //counter for total guesses
+        pause.stop();
+        reset();
     }
+
+    Timer pause = new Timer(2000, new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            seconds = 10;
+
+            labelSeconds.setText(String.valueOf(seconds));
+
+            buttonTrue.setBackground(new Color(30, 29, 29, 255));
+            buttonFalse.setBackground(new Color(30, 29, 29, 255));
+
+            buttonTrue.setEnabled(true);
+            buttonFalse.setEnabled(true);
+
+            reset();
+            // nextQuestion(); //call method for new question
+        }
+    });
+
 
     //method for displaying result in the end
     public void results() {
