@@ -71,16 +71,16 @@ public class PokemonQuestions {
         System.out.println("RANDOM " + randomNumb);
         //if the number is 1 then it is a true statement and
           // the questions will be based on the pokemon that the users see
-          //otherwise it will be false and the questions will be based around the other pokemon 
+          //otherwise it will be false and the questions will be based around the other pokemon
         if (randomNumb ==1){
 
-            randomQuestion(getTruePokemon());
+            generateQuestion(getTruePokemon());
             setTrueOrFalse(true);
         }
 
         else
         {
-            randomQuestion(getFalsePokemon());
+            generateQuestion(getFalsePokemon());
             setTrueOrFalse(false);
         }
 
@@ -88,7 +88,7 @@ public class PokemonQuestions {
     }
     //method to get random question from true question/false question methods
     //issue because url and name dont follow random so question is only correct sometimes, actually using this as the game now
-    public void randomQuestion(Pokemon pokemon) {
+    public void generateQuestion(Pokemon pokemon) {
           //randomize a number using the type size same for moveNumber
         int typeNumber = getRand().nextInt(pokemon.getTypeList().size());
         int moveNumber = getRand().nextInt(pokemon.getMoveList().size());
@@ -107,6 +107,11 @@ public class PokemonQuestions {
         System.out.println(getQuestionList());
         pokemon.pokemonInfo();
 
+    }
+
+    public String randomQuestion(){
+          int questionNumber = getRand().nextInt(getQuestionList().size());
+        return getQuestionList().get(questionNumber);
     }
 
 }

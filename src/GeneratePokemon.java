@@ -22,6 +22,7 @@ public class GeneratePokemon {
     public Random getRand() {
         return RAND;
     }
+
     private JsonValue getJsValue() {
         return jsValue;
     }
@@ -100,7 +101,7 @@ public class GeneratePokemon {
         getPokemons().getFirst().pokemonInfo();
         //getPokemons().getLast().pokemonInfo();
 
-       //PokemonQuestions question = new PokemonQuestions(getPokemons());
+
        //question.moveQuestion();
 
     }
