@@ -4,8 +4,16 @@ import java.util.Scanner;
 
 public class Pokemon {
 
+/*
+this class respresents the actual pokemons with their name, sprite(photo), list of moves and list of types. We are
+using getter and setters to retrive the values. so this class encapsulates the data related to the pokemon and
+info about the pokemon can be used by pokemon info method
+*/
 
-
+    private ArrayList<String> typeList; //list of pokemon types
+    private ArrayList<String> moveList; //list of pokemon moves
+    private URL spriteURL; //pokemons photo
+    private String name; //pokemons name
 
     public String getName() {
         return name;
@@ -34,11 +42,8 @@ public class Pokemon {
     private void setMoveList(ArrayList<String> moveList) {
         this.moveList = moveList;
     }
-    private ArrayList<String> typeList;
-    private ArrayList<String> moveList;
-    private URL spriteURL;
-    private String name;
 
+    //constructor to initialise Pokemon object with the provided values for pokemon attributes
     Pokemon(String name,URL spriteURL,ArrayList<String> moveList,  ArrayList<String> typeList ) {
         setName(name);
         setSpriteURL(spriteURL);
