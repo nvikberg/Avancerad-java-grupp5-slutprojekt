@@ -34,7 +34,7 @@ public class GUI implements ActionListener {
     int seconds = 10;
     String answer;
     Pokemon currentPokemon;
-    private PokemonQuestions pokemonQuestions;
+    //private PokemonQuestions pokemonQuestions;
 
    /* Timer pause = new Timer(1000, new ActionListener() {
         @Override
@@ -171,15 +171,12 @@ public class GUI implements ActionListener {
         frame.add(labelCorrectAnswer);
 
 
-
         new GeneratePokemon();
         PokemonQuestions question = new PokemonQuestions(GeneratePokemon.getPokemons());
         currentPokemon = question.getTruePokemon();
         setSpriteURL(GeneratePokemon.getPokemons().getFirst().getSpriteURL());
 
-
         // name.setText(pokemonName);
-
 
         try {// access the Pokemon sprite image from GeneratePokemon class in pokemons list
 
@@ -237,16 +234,17 @@ public class GUI implements ActionListener {
     //implementing action listneres for buttons, having issues reaching false button
     @Override
     public void actionPerformed(ActionEvent e) {
-        buttonTrue.setEnabled(false);
-        buttonFalse.setEnabled(false);
+        // buttonTrue.setEnabled(false);
+        //buttonFalse.setEnabled(false);
 
         JButton clickedButton = (JButton) e.getSource();
 
         if (clickedButton == buttonTrue) {
+            buttonPress(true);
 
 
         } else if (clickedButton == buttonFalse) {
-
+            buttonPress(false);
 
         } else if (clickedButton == buttonEndGame) {
             results();
@@ -277,20 +275,21 @@ public class GUI implements ActionListener {
 
 
     //for changing colors when pressed, green correct and red wrong
-   /* private void buttonPress(JButton button) {
-        if (pokemonQuestions.isAnswerCorrect()) {
-            button.setBackground(new Color(0, 200, 0));
+    private void buttonPress(boolean userAnswer) {
+        PokemonQuestions pokemonQuestions = new PokemonQuestions(GeneratePokemon.getPokemons());
+        if (pokemonQuestions.getTrueOrFalse() == userAnswer) { //get true or false method from PQ class
+            // buttonTrue.setBackground(new Color(0, 200, 0));
             //pause.stop();
             correct_guesses++;
-            //labelCorrectAnswer.setText("You were correct!");
+            labelCorrectAnswer.setText("You were correct!");
         } else {
-            button.setBackground(new Color(250, 0, 0));
-            //labelCorrectAnswer.setText("That's wrong!");
+            //  buttonFalse.setBackground(new Color(250, 0, 0));
+            labelCorrectAnswer.setText("That's wrong!");
             //pause.stop();
 
         }
         total_questions++;  //counter for total guesses
-    }*/
+    }
 
     //method for displaying result in the end
     public void results() {
