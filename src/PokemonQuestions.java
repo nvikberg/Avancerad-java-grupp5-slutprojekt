@@ -59,8 +59,8 @@ public class PokemonQuestions {
 
     ArrayList<String> questionList = new ArrayList<>();
 
-      PokemonQuestions(ArrayList<Pokemon> pokemons) {
-          //Saves pokemon list
+    PokemonQuestions(ArrayList<Pokemon> pokemons) {
+        //Saves pokemon list
         setPokemons(pokemons);
         //saves the pokemon that the user will see
         setTruePokemon(getPokemons().getFirst());
@@ -70,8 +70,8 @@ public class PokemonQuestions {
         int randomNumb = getRand().nextInt(2);
         System.out.println("RANDOM " + randomNumb);
         //if the number is 1 then it is a true statement and
-          // the questions will be based on the pokemon that the users see
-          //otherwise it will be false and the questions will be based around the other pokemon
+        // the questions will be based on the pokemon that the users see
+        //otherwise it will be false and the questions will be based around the other pokemon
         if (randomNumb ==1){
 
             generateQuestion(getTruePokemon());
@@ -89,7 +89,7 @@ public class PokemonQuestions {
     //method to get random question from true question/false question methods
     //issue because url and name dont follow random so question is only correct sometimes, actually using this as the game now
     public void generateQuestion(Pokemon pokemon) {
-          //randomize a number using the type size same for moveNumber
+        //randomize a number using the type size same for moveNumber
         int typeNumber = getRand().nextInt(pokemon.getTypeList().size());
         int moveNumber = getRand().nextInt(pokemon.getMoveList().size());
         //Always saves the pokemon name that the user will see,
@@ -110,7 +110,7 @@ public class PokemonQuestions {
     }
 
     public String randomQuestion(){
-          int questionNumber = getRand().nextInt(getQuestionList().size());
+        int questionNumber = getRand().nextInt(getQuestionList().size());
         return getQuestionList().get(questionNumber);
     }
 

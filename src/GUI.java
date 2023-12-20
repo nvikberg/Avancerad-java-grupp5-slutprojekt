@@ -29,6 +29,7 @@ public class GUI implements ActionListener {
     public void setSpriteURL(URL spriteURL) {
         this.spriteURL = spriteURL;
     }
+
     public JLabel getSpriteLabel() {
         return spriteLabel;
     }
@@ -38,7 +39,7 @@ public class GUI implements ActionListener {
     int correct_guesses = 0;
     int total_questions = 0;
     int result;
-    int seconds = 10;
+    int seconds = 5;
     String answer;
     JFrame frame = new JFrame();
 
@@ -84,10 +85,8 @@ public class GUI implements ActionListener {
         labelSeconds.setBounds(500, 470, 100, 100);
         labelSeconds.setForeground(new Color(125, 25, 25));
         labelSeconds.setFont(new Font("Verdana", Font.PLAIN, 25));
-        //labelSeconds.setOpaque(true);
         labelSeconds.setText(String.valueOf(seconds));
         labelSeconds.setHorizontalAlignment(SwingConstants.CENTER);
-
 
         labelTime = new JLabel();
         labelTime.setBounds(500, 420, 100, 100);
@@ -161,21 +160,10 @@ public class GUI implements ActionListener {
         buttonEndGame.setBorder(new EtchedBorder());
         buttonEndGame.addActionListener(this);
 
-/*
-        textField.setBackground(new Color(10,100,0));
-        JButton button = new JButton("Add text to Fire Base");
-        button.addActionListener(e -> {
-            try {
-                putRequest(textField.getText());
-            } catch (Exception ex) {
-                throw new RuntimeException(ex);
-            }
-        });
-*/
         frame.add(labelScore);
         frame.add(labelHeader);
-        frame.add(labelSeconds);
-        frame.add(labelTime);
+        // frame.add(labelSeconds);
+        // frame.add(labelTime);
 
         frame.add(buttonTrue);
         frame.add(buttonFalse);
@@ -191,13 +179,11 @@ public class GUI implements ActionListener {
         System.out.println(GeneratePokemon.getPokemons().toString());
         String u = scan.nextLine();
         reset();
-        //nextQuestion(); // Set up the initial question
-        //pause.start(); // Start the timer for question change
         // frame.add(name);
 
     }
 
-    public void newPokemon(){
+    public void newPokemon() {
         new GeneratePokemon();
         question = new PokemonQuestions(GeneratePokemon.getPokemons());
         currentPokemon = question.getTruePokemon();
@@ -207,7 +193,7 @@ public class GUI implements ActionListener {
         pokemonSpirte();
     }
 
-    public void pokemonSpirte(){
+    public void pokemonSpirte() {
 
         try {// access the Pokemon sprite image from GeneratePokemon class in pokemons list
 
@@ -222,37 +208,6 @@ public class GUI implements ActionListener {
         }
     }
 
-    //method for next question
-    public void nextQuestion() {
-        /*Pokemon currentPokemon = pokemonQuestions.getTruePokemon();*/
-        // GeneratePokemon.getPokemons().getFirst();
-        // String question = pokemonQuestions.randomQuestion();
-        // labelQuestion.setText(question);
-        // pause.start();
-        /*updateSprite(currentPokemon);
-
-
-        System.out.println(currentPokemon);*/
-        // name.setText(currentPokemon.getName());
-        // type.setText(currentPokemon.getTypeList().toString());
-
-    }
-
-    //to update sprite photo for each question //NOT FUNCTIONING CORRECT
-    private void updateSprite(Pokemon pokemon) {
-        try {
-            BufferedImage img = ImageIO.read(pokemon.getSpriteURL());
-            ImageIcon icon = new ImageIcon(img);
-
-            //sprite.setIcon(icon);
-
-            System.out.println(pokemon.getSpriteURL());
-
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
     //implementing action listneres for buttons
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -260,13 +215,8 @@ public class GUI implements ActionListener {
 
         if (clickedButton == buttonTrue) {
             buttonPress(true);
-            //buttonTrue.setBackground(new Color(0, 200, 0));
 
-            // Enable buttons when a button is clicked
-       // buttonTrue.setEnabled(false);
-       // buttonFalse.setEnabled(false);
-
-    } else if (clickedButton == buttonFalse) {
+        } else if (clickedButton == buttonFalse) {
             buttonPress(false);
 
         } else if (clickedButton == buttonEndGame) {
@@ -275,6 +225,7 @@ public class GUI implements ActionListener {
             results();
         }
     }
+
     //for changing colors when pressed, green correct and red wrong
     private void buttonPress(boolean userAnswer) {
         //userAnswered=true; //flagging this to use in timer
@@ -296,7 +247,6 @@ public class GUI implements ActionListener {
         buttonFalse.setEnabled(false);
 
         pause.start(); //starting timer for showing correct answer
-
     }
 
     //method for marking answers when timer is up without counting guesses
@@ -310,7 +260,7 @@ public class GUI implements ActionListener {
         }
     }
 
-    Timer pause = new Timer(2000, new ActionListener() {
+    Timer pause = new Timer(1000, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
 
@@ -321,9 +271,8 @@ public class GUI implements ActionListener {
         }
     });
 
-    public void reset(){
+    public void reset() {
         newPokemon();
-        //labelCo.setText("");
         buttonTrue.setBackground(new Color(30, 29, 29, 255));
         buttonFalse.setBackground(new Color(30, 29, 29, 255));
 
@@ -335,7 +284,6 @@ public class GUI implements ActionListener {
     //method for displaying result in the end
     public void results() {
         labelScore.setText("Score " + correct_guesses + " /" + total_questions + " correct guesses");
-        //pause.stop();
     }
 
 }

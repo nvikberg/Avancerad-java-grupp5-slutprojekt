@@ -18,15 +18,19 @@ info about the pokemon can be used by pokemon info method
     public String getName() {
         return name;
     }
+
     private void setName(String name) {
         this.name = name;
     }
+
     public ArrayList<String> getTypeList() {
         return typeList;
     }
+
     private void setTypeList(ArrayList<String> typeList) {
         this.typeList = typeList;
     }
+
     public ArrayList<String> getMoveList() {
         return moveList;
     }
@@ -44,7 +48,7 @@ info about the pokemon can be used by pokemon info method
     }
 
     //constructor to initialise Pokemon object with the provided values for pokemon attributes
-    Pokemon(String name,URL spriteURL,ArrayList<String> moveList,  ArrayList<String> typeList ) {
+    Pokemon(String name, URL spriteURL, ArrayList<String> moveList, ArrayList<String> typeList) {
         setName(name);
         setSpriteURL(spriteURL);
         ArrayList<String> f = new ArrayList<>();
@@ -54,10 +58,9 @@ info about the pokemon can be used by pokemon info method
 
 
     //method for gathering pokemons info thru getting - getName, getMove (only first one from list) and getType
-    public void pokemonInfo (){
-        System.out.println( getName() + " has this move " + getMoveList().getFirst() + " and is this type " + getTypeList());
+    public void pokemonInfo() {
+        System.out.println(getName() + " has this move " + getMoveList().getFirst() + " and is this type " + getTypeList());
     }
-
 
 
 }

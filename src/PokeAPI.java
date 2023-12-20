@@ -13,9 +13,9 @@ import java.util.HashMap;
 
 public class PokeAPI {
 
-   private static String line;
+    private static String line;
     static JsonValue jv;
-   // static String databaseUrl = "https://pokeapi.co/api/v2/berry/1/";
+    // static String databaseUrl = "https://pokeapi.co/api/v2/berry/1/";
 
     public static JsonValue getRequest(int id) {
         //String databaseURl = "https://pokeapi.co/api/v2/pokemon/ditto";
@@ -42,7 +42,7 @@ public class PokeAPI {
                 reader.close();
 
                 //get values out from the url data json
-                jv= Json.parse(String.valueOf(response));
+                jv = Json.parse(String.valueOf(response));
                 JsonObject jo = jv.asObject().get("species").asObject();
                 String s = jo.get("name").asString();
                 System.out.println(s);

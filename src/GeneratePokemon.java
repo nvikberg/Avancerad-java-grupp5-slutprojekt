@@ -86,7 +86,7 @@ public class GeneratePokemon {
                 for (String move:getPokemons().getFirst().getMoveList()){
                     //removes that move if it's in the last pokemon move list
                     getPokemons().getLast().getMoveList().remove(move);
-                   // System.out.println(move + " was removed");
+                    // System.out.println(move + " was removed");
                     //System.out.println(getPokemons().getFirst().getMoveList().toString());
                 }
                 //if the last pokemon move list is empty,removes that pokemon and starts over the loop
@@ -104,7 +104,7 @@ public class GeneratePokemon {
         //getPokemons().getLast().pokemonInfo();
 
 
-       //question.moveQuestion();
+        //question.moveQuestion();
 
     }
 
@@ -132,20 +132,20 @@ public class GeneratePokemon {
     // Then that jsonvalue is turned into an object. Inside that object is the type,
     // so we extract the type and then find its name and put it in a string,
     // that String is then put into a list
-        public ArrayList<String> findType() { //method for finding "types" in pokemon from json
-            ArrayList<String> typeArrayList = new ArrayList<>();
-            JsonArray typeArray = getJsObject().get("types").asArray(); //retriving object to array
+    public ArrayList<String> findType() { //method for finding "types" in pokemon from json
+        ArrayList<String> typeArrayList = new ArrayList<>();
+        JsonArray typeArray = getJsObject().get("types").asArray(); //retriving object to array
 
-                for (JsonValue typeValue:typeArray){
-                    JsonObject typeObject = typeValue.asObject().get("type").asObject();
-                    String type = (typeObject.get("name").asString());
+        for (JsonValue typeValue:typeArray){
+            JsonObject typeObject = typeValue.asObject().get("type").asObject();
+            String type = (typeObject.get("name").asString());
 
 
-                    typeArrayList.add(type);
-                    /*System.out.println(typeArrayList);*/
-                }
-                return typeArrayList;
-            }
+            typeArrayList.add(type);
+            /*System.out.println(typeArrayList);*/
+        }
+        return typeArrayList;
+    }
 
     // takes the URL for the specific pokemon and returns that URL
     public static URL findSprite(){
