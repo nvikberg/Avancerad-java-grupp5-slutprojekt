@@ -16,9 +16,11 @@ import java.util.Scanner;
 
 public class GUI implements ActionListener {
     private boolean userAnswered = false;
+
+    JButton clickedButton;
     JButton buttonTrue, buttonFalse, buttonEndGame;
     JLabel labelWrongAnswer, labelCorrectAnswer, name, type, labelQuestion, labelHeader, labelTime,
-            labelSeconds, labelScore, labelSecondsLeft;
+            labelSeconds, labelScore, labelSecondsLeft, labelTrueOrFalse;
     static String databaseUrl = "https://pokeapi.co/api/v2/berry/1/";
     ImageIcon frameIcon = new ImageIcon("frameIcon.png");
 
@@ -102,16 +104,23 @@ public class GUI implements ActionListener {
         labelScore.setFont(new Font("Verdana", Font.PLAIN, 25));
         labelScore.setHorizontalAlignment(SwingConstants.CENTER);
 
+        labelTrueOrFalse = new JLabel("True or False");
+        labelTrueOrFalse.setFont(new Font("Verdana", Font.PLAIN, 20));
+        labelTrueOrFalse.setBounds(0, 120, 700, 80);
+        labelTrueOrFalse.setBackground(new Color(25, 25, 25));
+        labelTrueOrFalse.setForeground(new Color(211, 106, 19));
+        labelTrueOrFalse.setHorizontalAlignment(SwingConstants.CENTER);
+
         labelQuestion = new JLabel(""); //this can hold quiz question
         labelQuestion.setFont(new Font("Sans", Font.BOLD, 18));
-        labelQuestion.setBounds(0, 100, 700, 80);
+        labelQuestion.setBounds(0, 160, 700, 80);
         labelQuestion.setBackground(new Color(25, 25, 25));
         labelQuestion.setForeground(new Color(222, 194, 24));
         labelQuestion.setHorizontalAlignment(SwingConstants.CENTER);
 
         labelCorrectAnswer = new JLabel();
         labelCorrectAnswer.setFont(new Font("Verdana", Font.PLAIN, 16));
-        labelCorrectAnswer.setBounds(0, 160, 700, 80);
+        labelCorrectAnswer.setBounds(0, 200, 700, 80);
         labelCorrectAnswer.setBackground(new Color(25, 25, 25));
         labelCorrectAnswer.setForeground(new Color(211, 106, 19));
         labelCorrectAnswer.setHorizontalAlignment(SwingConstants.CENTER);
@@ -162,6 +171,8 @@ public class GUI implements ActionListener {
 
         frame.add(labelScore);
         frame.add(labelHeader);
+        frame.add(labelTrueOrFalse);
+
         // frame.add(labelSeconds);
         // frame.add(labelTime);
 
@@ -171,7 +182,7 @@ public class GUI implements ActionListener {
         frame.add(labelCorrectAnswer);
 
 
-        newPokemon();
+        newPokemon(); //new pokemon call
         frame.add(getSpriteLabel());
         frame.add(labelQuestion);
         frame.setVisible(true);
@@ -183,17 +194,19 @@ public class GUI implements ActionListener {
 
     }
 
+    //generating new pokemon and pokemon question
     public void newPokemon() {
         new GeneratePokemon();
         question = new PokemonQuestions(GeneratePokemon.getPokemons());
         currentPokemon = question.getTruePokemon();
         setSpriteURL(GeneratePokemon.getPokemons().getFirst().getSpriteURL());
 
-        labelQuestion.setText("True or false! \n" + question.randomQuestion());
-        pokemonSpirte();
+        labelQuestion.setText(question.randomQuestion());
+        pokemonSprite();
+
     }
 
-    public void pokemonSpirte() {
+    public void pokemonSprite() {
 
         try {// access the Pokemon sprite image from GeneratePokemon class in pokemons list
 
@@ -231,12 +244,22 @@ public class GUI implements ActionListener {
         //userAnswered=true; //flagging this to use in timer
 
         if (question.getTrueOrFalse() == userAnswer) { //get true or false method from PQ class
-            buttonTrue.setBackground(new Color(0, 200, 0));
+           if (userAnswer) {
+               buttonTrue.setBackground(new Color(0, 200, 0));
+           } else {
+               buttonFalse.setBackground(new Color(0, 200, 0));
+           }
+            // clickedButton.setBackground(new Color(0, 200, 0));
             correct_guesses++;
             labelCorrectAnswer.setText("You were correct!");
 
         } else {
-            buttonFalse.setBackground(new Color(250, 0, 0));
+            if (userAnswer) {
+                buttonTrue.setBackground(new Color(250, 0, 0));
+            } else {
+                buttonFalse.setBackground(new Color(250, 0, 0));
+            }
+
             labelCorrectAnswer.setText("That's wrong!");
         }
 
