@@ -18,6 +18,7 @@ public class GeneratePokemon {
     private Random RAND = new Random();
     private JsonValue jsValue;
     static URL imageURL;
+    public static ArrayList<Pokemon> pokemons;
 
     public Random getRand() {
         return RAND;
@@ -46,7 +47,7 @@ public class GeneratePokemon {
         this.pokemons = pokemons;
     }
 
-    public static ArrayList<Pokemon> pokemons;
+
 
     GeneratePokemon() {
         // exempel på hur man kan använda Jsonvalue nu med id
@@ -61,10 +62,9 @@ public class GeneratePokemon {
             JsonValue jv = PokeAPI.getRequest(randomId());
             setJsValue(jv);
             setJsObject(getJsValue().asObject());
-            JsonObject jo = getJsObject().get("species").asObject();
-            String name = jo.get("name").asString();
+
             //new pokemon egg with info on name, sprite, move and type
-            Pokemon egg = new Pokemon(name, findSprite(), findMove(), findType());
+            Pokemon egg = new Pokemon(findName(), findSprite(), findMove(), findType());
             getPokemons().add(egg); // adding created pokemon egg to pokemons list
 
             //Checks the pokemon list size
@@ -158,6 +158,11 @@ public class GeneratePokemon {
             throw new RuntimeException(e);
         }
         return imageURL;
+    }
+
+    public String findName(){
+        JsonObject jo = getJsObject().get("species").asObject();
+        return jo.get("name").asString();
     }
 
 
