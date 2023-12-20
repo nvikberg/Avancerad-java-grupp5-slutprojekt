@@ -239,8 +239,8 @@ public class GUI implements ActionListener {
         }
     }*/
 
-    //timer used to 1.keep correct answer label showing the answer before going to new question
-    //and also delay the colors of the buttons until next question
+
+    //delay the colors of the buttons until next question
     Timer pause = new Timer(200, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
