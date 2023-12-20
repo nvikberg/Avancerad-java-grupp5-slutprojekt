@@ -26,15 +26,13 @@ public class GUI extends JFrame implements ActionListener {
     private URL spriteURL;
     int correct_guesses = 0;
     int total_questions = 0;
-    //JFrame frame = new JFrame();
-
 
     private JLabel spriteLabel = new JLabel();
     Pokemon currentPokemon;
     PokemonQuestions question;
 
     GUI() {
-
+        // frame set up and swing components
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //fonstret stangs
         setTitle("Pokemon Quiz");
         setLayout(null);
@@ -113,12 +111,13 @@ public class GUI extends JFrame implements ActionListener {
         buttonFalse.addActionListener(this);
 
         buttonEndGame = new JButton();
-        buttonEndGame.setBounds(480, 500, 100, 30);
+        buttonEndGame.setBounds(480, 502, 100, 30);
         buttonEndGame.setFocusable(false);
         buttonEndGame.setFont(new Font("Verdana", Font.BOLD, 11));
         buttonEndGame.setText("End Game");
         buttonEndGame.setForeground(new Color(30, 29, 29, 255));
         buttonEndGame.setBackground(new Color(211, 106, 19));
+        buttonEndGame.setBorder(BorderFactory.createBevelBorder(0));
         buttonEndGame.addActionListener(this);
 
         buttonNewGame = new JButton();
@@ -128,8 +127,10 @@ public class GUI extends JFrame implements ActionListener {
         buttonNewGame.setText("New Game");
         buttonNewGame.setForeground(new Color(30, 29, 29, 255));
         buttonNewGame.setBackground(new Color(222, 194, 24));
+        buttonNewGame.setBorder(BorderFactory.createBevelBorder(0));
         buttonNewGame.addActionListener(this);
 
+        //adding components to frame
         add(labelScore);
         add(labelHeader);
 
@@ -139,7 +140,6 @@ public class GUI extends JFrame implements ActionListener {
         add(buttonEndGame);
         add(buttonNewGame);
         add(labelCorrectAnswer);
-
 
         newPokemon(); //new pokemon call
         add(getSpriteLabel());
@@ -159,7 +159,7 @@ public class GUI extends JFrame implements ActionListener {
         labelQuestion.setText(question.randomQuestion());
         labelScore.setText("Points " + correct_guesses + " / " + total_questions);
 
-        pokemonSprite();
+        pokemonSprite(); //call sprite image
 
     }
 
@@ -197,7 +197,6 @@ public class GUI extends JFrame implements ActionListener {
         } else if (clickedButton == buttonNewGame) {
 
             reset();
-
             newGame();
         }
     }
@@ -209,11 +208,11 @@ public class GUI extends JFrame implements ActionListener {
         //userAnswered=true; //flagging this to use in timer
 
         if (question.getTrueOrFalse() == userAnswer) { //get true or false method from PQ class
-           if (userAnswer) {
-               buttonTrue.setBackground(new Color(0, 200, 0));
-           } else {
-               buttonFalse.setBackground(new Color(0, 200, 0));
-           }
+            if (userAnswer) {
+                buttonTrue.setBackground(new Color(0, 200, 0));
+            } else {
+                buttonFalse.setBackground(new Color(0, 200, 0));
+            }
             correct_guesses++;
 
         } else {
@@ -260,9 +259,9 @@ public class GUI extends JFrame implements ActionListener {
     //method for displaying result in the end
     public void results() {
 
-       labelScore.setText("Score " + correct_guesses + " /" + total_questions + " correct guesses");
-       labelScore.setFont(new Font("Verdana", Font.PLAIN, 30));
-       labelScore.setBounds(0, 230, 700, 80);
+        labelScore.setText("Score " + correct_guesses + " /" + total_questions + " correct guesses");
+        labelScore.setFont(new Font("Verdana", Font.PLAIN, 30));
+        labelScore.setBounds(0, 230, 700, 80);
 
     }
 

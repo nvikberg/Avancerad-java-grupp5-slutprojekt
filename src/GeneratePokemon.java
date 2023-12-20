@@ -101,11 +101,6 @@ public class GeneratePokemon {
         getPokemons().getFirst().pokemonInfo();
         getPokemons().getLast().pokemonInfo();
 
-        //getPokemons().getLast().pokemonInfo();
-
-
-        //question.moveQuestion();
-
     }
 
     //makes a jsonvalue for each index of the typeArray.

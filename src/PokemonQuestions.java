@@ -7,8 +7,6 @@ public class PokemonQuestions {
     private Pokemon falsePokemon;
     ///private Random rand;
     private Boolean trueOrFalse; //statement true or false
-    private String currentQuestion;
-    private boolean correctAnswer; //to store the correct answer
     private Random rand = new Random();
 
     /* PokemonQuestions class is to ask true or false questions about Pokemon attributes
@@ -52,11 +50,7 @@ public class PokemonQuestions {
     public ArrayList<String> getQuestionList() {
         return questionList;
     }
-/*
-    private void setQuestionList(ArrayList<String> questionList) {
-        this.questionList = questionList;
-    }
-*/
+
     ArrayList<String> questionList = new ArrayList<>();
 
     PokemonQuestions(ArrayList<Pokemon> pokemons) {
@@ -83,7 +77,6 @@ public class PokemonQuestions {
             generateQuestion(getFalsePokemon());
             setTrueOrFalse(false);
         }
-
 
     }
     //method to get random question from true question/false question methods
