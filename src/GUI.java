@@ -14,9 +14,9 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 
-public class GUI implements ActionListener {
+public class GUI extends JFrame implements ActionListener {
 
-    JButton buttonTrue, buttonFalse, buttonEndGame;
+    JButton buttonTrue, buttonFalse, buttonEndGame, buttonPlayAgain;
     JLabel labelCorrectAnswer, name, type, labelQuestion, labelHeader, labelScore, labelTrueOrFalse;
     ImageIcon frameIcon = new ImageIcon("frameIcon.png");
     public URL getSpriteURL() {
@@ -31,7 +31,7 @@ public class GUI implements ActionListener {
     private URL spriteURL;
     int correct_guesses = 0;
     int total_questions = 0;
-    JFrame frame = new JFrame();
+    //JFrame frame = new JFrame();
 
 
     private JLabel spriteLabel = new JLabel();
@@ -40,14 +40,14 @@ public class GUI implements ActionListener {
 
     GUI() {
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //fonstret stangs
-        frame.setTitle("Pokemon Quiz");
-        frame.setLayout(null);
-        frame.setSize(700, 700);
-        frame.getContentPane().setBackground(new Color(5, 42, 68));
-        frame.setLocation(300, 150);
-        frame.setResizable(false);
-        frame.setIconImage(frameIcon.getImage());
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //fonstret stangs
+        setTitle("Pokemon Quiz");
+        setLayout(null);
+        setSize(700, 700);
+        getContentPane().setBackground(new Color(5, 42, 68));
+        setLocation(300, 150);
+        setResizable(false);
+        setIconImage(frameIcon.getImage());
 
         labelHeader = new JLabel("Pokemon Quiz"); //this can hold quiz question
         labelHeader.setFont(new Font("Sans", Font.BOLD, 30));
@@ -127,26 +127,35 @@ public class GUI implements ActionListener {
         buttonEndGame.setBorder(new EtchedBorder());
         buttonEndGame.addActionListener(this);
 
-        frame.add(labelScore);
-        frame.add(labelHeader);
-        frame.add(labelTrueOrFalse);
+        buttonPlayAgain = new JButton();
+        buttonPlayAgain.setBounds(300, 560, 100, 50);
+        buttonPlayAgain.setFocusable(false);
+        buttonPlayAgain.setFont(new Font("Verdana", Font.BOLD, 14));
+        buttonPlayAgain.setText("Play Again");
+        buttonPlayAgain.setForeground(new Color(255, 255, 255));
+        buttonPlayAgain.setBackground(new Color(30, 29, 29, 255));
+        buttonPlayAgain.setBorder(new EtchedBorder());
+        buttonPlayAgain.addActionListener(this);
 
-        // frame.add(labelSeconds);
-        // frame.add(labelTime);
+        add(labelScore);
+        add(labelHeader);
+        add(labelTrueOrFalse);
+        add(buttonTrue);
+        add(buttonFalse);
+        add(buttonEndGame);
+        add(buttonPlayAgain);
+        add(labelCorrectAnswer);
 
-        frame.add(buttonTrue);
-        frame.add(buttonFalse);
-        frame.add(buttonEndGame);
-        frame.add(labelCorrectAnswer);
 
         newPokemon(); //new pokemon call
-        frame.add(getSpriteLabel());
-        frame.add(labelQuestion);
-        frame.setVisible(true);
+        add(getSpriteLabel());
+        add(labelQuestion);
+
+        setVisible(true);
 
     }
 
-    //generating new pokemon and pokemon question
+    //generating new pokemon and pokemon question from generate pokemon class
     public void newPokemon() {
         new GeneratePokemon();
         question = new PokemonQuestions(GeneratePokemon.getPokemons());
@@ -189,6 +198,9 @@ public class GUI implements ActionListener {
         } else if (clickedButton == buttonEndGame) {
             buttonTrue.setEnabled(false);
             buttonFalse.setEnabled(false);
+
+            buttonPlayAgain.setEnabled(true);
+
             results();
         }
     }
@@ -267,8 +279,8 @@ public class GUI implements ActionListener {
     public void results() {
 
        labelScore.setText("Score " + correct_guesses + " /" + total_questions + " correct guesses");
-       labelScore.setFont(new Font("Verdana", Font.PLAIN, 25));
-
+       labelScore.setFont(new Font("Verdana", Font.PLAIN, 30));
+       labelScore.setBounds(0, 230, 700, 80);
     }
 
 }
