@@ -15,10 +15,8 @@ public class PokeAPI {
 
     private static String line;
     static JsonValue jv;
-    // static String databaseUrl = "https://pokeapi.co/api/v2/berry/1/";
 
     public static JsonValue getRequest(int id) {
-        //String databaseURl = "https://pokeapi.co/api/v2/pokemon/ditto";
 
         try {
             // Create the URL for the HTTP GET request
@@ -32,7 +30,7 @@ public class PokeAPI {
 
             int responseCode = connection.getResponseCode(); //save connection response code to int
             if (responseCode == HttpURLConnection.HTTP_OK) { // if responecode and url connection match
-                // Read the response from the InputStream
+                // reader reads in the respons from input strem
                 BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));//reads in data
                 StringBuilder response = new StringBuilder(); //save to stringbuilder
 

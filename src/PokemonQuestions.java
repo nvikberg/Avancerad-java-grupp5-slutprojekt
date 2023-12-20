@@ -52,11 +52,11 @@ public class PokemonQuestions {
     public ArrayList<String> getQuestionList() {
         return questionList;
     }
-
+/*
     private void setQuestionList(ArrayList<String> questionList) {
         this.questionList = questionList;
     }
-
+*/
     ArrayList<String> questionList = new ArrayList<>();
 
     PokemonQuestions(ArrayList<Pokemon> pokemons) {

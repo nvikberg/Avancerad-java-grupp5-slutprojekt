@@ -239,7 +239,9 @@ public class GUI implements ActionListener {
         }
     }
 
-    //for changing colors when pressed, green correct and red wrong
+    //buttons changing colors when pressed by user, green for correct and red for wrong
+    //compares user answer with the correct answer from questions.getTrueOrFalse
+    //
     private void buttonPress(boolean userAnswer) {
         //userAnswered=true; //flagging this to use in timer
 
@@ -271,7 +273,7 @@ public class GUI implements ActionListener {
 
         pause.start(); //starting timer for showing correct answer
     }
-
+/*
     //method for marking answers when timer is up without counting guesses
     private void fakeButtonPress() {
 //if user doiesnt answer in time, computer shows answer
@@ -281,8 +283,10 @@ public class GUI implements ActionListener {
         } else {
             buttonFalse.setBackground(new Color(250, 0, 0));
         }
-    }
+    }*/
 
+    //timer used to 1.keep correct answer label showing the answer before going to new question
+    //and also delay the colors of the buttons until next question
     Timer pause = new Timer(1000, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -294,6 +298,8 @@ public class GUI implements ActionListener {
         }
     });
 
+    //reset method, new pokemon (question and photo with its attributes)
+    //buttons go back to normal color and buttons get enabled
     public void reset() {
         newPokemon();
         buttonTrue.setBackground(new Color(30, 29, 29, 255));
@@ -303,7 +309,6 @@ public class GUI implements ActionListener {
         buttonFalse.setEnabled(true);
     }
 
-
     //method for displaying result in the end
     public void results() {
         labelScore.setText("Score " + correct_guesses + " /" + total_questions + " correct guesses");
@@ -311,6 +316,9 @@ public class GUI implements ActionListener {
 
 }
 
+//OPTION TO PLAY AGAIN
+//ADD SO YOU CAN SEE THE SCORE ALL THE TIME
 
-
+//HALF PAGE PA ROSITSAS
+//OUR RAPPORT
 
