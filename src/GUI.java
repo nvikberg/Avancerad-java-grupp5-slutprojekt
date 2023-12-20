@@ -15,58 +15,30 @@ import java.util.Scanner;
 
 
 public class GUI implements ActionListener {
-    private boolean userAnswered = false;
 
-    JButton clickedButton;
     JButton buttonTrue, buttonFalse, buttonEndGame;
-    JLabel labelWrongAnswer, labelCorrectAnswer, name, type, labelQuestion, labelHeader, labelTime,
-            labelSeconds, labelScore, labelSecondsLeft, labelTrueOrFalse;
-    static String databaseUrl = "https://pokeapi.co/api/v2/berry/1/";
+    JLabel labelCorrectAnswer, name, type, labelQuestion, labelHeader, labelScore, labelTrueOrFalse;
     ImageIcon frameIcon = new ImageIcon("frameIcon.png");
-
     public URL getSpriteURL() {
         return spriteURL;
     }
-
     public void setSpriteURL(URL spriteURL) {
         this.spriteURL = spriteURL;
     }
-
     public JLabel getSpriteLabel() {
         return spriteLabel;
     }
-
     private URL spriteURL;
-
     int correct_guesses = 0;
     int total_questions = 0;
-    int result;
-    int seconds = 5;
-    String answer;
     JFrame frame = new JFrame();
 
 
     private JLabel spriteLabel = new JLabel();
     Pokemon currentPokemon;
     PokemonQuestions question;
-    //private PokemonQuestions pokemonQuestions;
-
-   /* Timer pause = new Timer(1000, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            seconds--;//after each second its subracting 1
-            labelSeconds.setText(String.valueOf(seconds)); //display
-            if (seconds <= 0) { //if timer runs out display will
-                results();
-
-            }
-        }
-    });*/
-
 
     GUI() {
-        // super();
-
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //fonstret stangs
         frame.setTitle("Pokemon Quiz");
@@ -83,25 +55,11 @@ public class GUI implements ActionListener {
         labelHeader.setHorizontalAlignment(SwingConstants.CENTER);
         labelHeader.setForeground(new Color(194, 170, 13));
 
-        labelSeconds = new JLabel();
-        labelSeconds.setBounds(500, 470, 100, 100);
-        labelSeconds.setForeground(new Color(125, 25, 25));
-        labelSeconds.setFont(new Font("Verdana", Font.PLAIN, 25));
-        labelSeconds.setText(String.valueOf(seconds));
-        labelSeconds.setHorizontalAlignment(SwingConstants.CENTER);
-
-        labelTime = new JLabel();
-        labelTime.setBounds(500, 420, 100, 100);
-        labelTime.setForeground(new Color(205, 25, 25));
-        labelTime.setFont(new Font("Verdana", Font.PLAIN, 25));
-        labelTime.setText("TIMER");
-        labelTime.setHorizontalAlignment(SwingConstants.CENTER);
-
         labelScore = new JLabel();
-        labelScore.setBounds(0, 200, 700, 100);
+        labelScore.setBounds(0, 220, 700, 100);
         labelScore.setBackground(new Color(0, 0, 0));
         labelScore.setForeground(new Color(250, 250, 250));
-        labelScore.setFont(new Font("Verdana", Font.PLAIN, 25));
+        labelScore.setFont(new Font("Verdana", Font.PLAIN, 15));
         labelScore.setHorizontalAlignment(SwingConstants.CENTER);
 
         labelTrueOrFalse = new JLabel("True or False");
@@ -181,16 +139,10 @@ public class GUI implements ActionListener {
         frame.add(buttonEndGame);
         frame.add(labelCorrectAnswer);
 
-
         newPokemon(); //new pokemon call
         frame.add(getSpriteLabel());
         frame.add(labelQuestion);
         frame.setVisible(true);
-        Scanner scan = new Scanner(System.in);
-        System.out.println(GeneratePokemon.getPokemons().toString());
-        String u = scan.nextLine();
-        reset();
-        // frame.add(name);
 
     }
 
@@ -202,6 +154,8 @@ public class GUI implements ActionListener {
         setSpriteURL(GeneratePokemon.getPokemons().getFirst().getSpriteURL());
 
         labelQuestion.setText(question.randomQuestion());
+        labelScore.setText(correct_guesses + " / " + total_questions);
+
         pokemonSprite();
 
     }
@@ -253,7 +207,7 @@ public class GUI implements ActionListener {
            }
             // clickedButton.setBackground(new Color(0, 200, 0));
             correct_guesses++;
-            labelCorrectAnswer.setText("You were correct!");
+            //labelCorrectAnswer.setText("You were correct!");
 
         } else {
             if (userAnswer) {
@@ -262,7 +216,7 @@ public class GUI implements ActionListener {
                 buttonFalse.setBackground(new Color(250, 0, 0));
             }
 
-            labelCorrectAnswer.setText("That's wrong!");
+           // labelCorrectAnswer.setText("That's wrong!");
         }
 
         total_questions++;  //counter for total guesses
@@ -287,7 +241,7 @@ public class GUI implements ActionListener {
 
     //timer used to 1.keep correct answer label showing the answer before going to new question
     //and also delay the colors of the buttons until next question
-    Timer pause = new Timer(1000, new ActionListener() {
+    Timer pause = new Timer(800, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
 
@@ -311,7 +265,10 @@ public class GUI implements ActionListener {
 
     //method for displaying result in the end
     public void results() {
-        labelScore.setText("Score " + correct_guesses + " /" + total_questions + " correct guesses");
+
+       labelScore.setText("Score " + correct_guesses + " /" + total_questions + " correct guesses");
+       labelScore.setFont(new Font("Verdana", Font.PLAIN, 25));
+
     }
 
 }
