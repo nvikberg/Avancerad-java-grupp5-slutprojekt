@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a8e0bd7a-e7a0-401a-b5d1-66211d8f0c39" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GeneratePokemon.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GeneratePokemon.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PokeAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PokeAPI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PokemonQuestions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PokemonQuestions.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,17 +97,6 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/GUI.java</url>
-          <line>196</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

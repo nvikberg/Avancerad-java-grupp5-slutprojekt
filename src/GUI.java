@@ -149,7 +149,7 @@ public class GUI extends JFrame implements ActionListener {
 
     }
 
-    //generating new pokemon and pokemon question from generate pokemon class
+    //generating new pokemon, pokemon question and sprite from generate pokemon class
     public void newPokemon() {
         new GeneratePokemon();
         question = new PokemonQuestions(GeneratePokemon.getPokemons());
@@ -165,7 +165,7 @@ public class GUI extends JFrame implements ActionListener {
 
     public void pokemonSprite() {
 
-        try {// access the Pokemon sprite image from GeneratePokemon class in pokemons list
+        try {// access the Pokemon sprite image from GeneratePokemon class in pokemons list and add to label
 
             BufferedImage img = ImageIO.read(getSpriteURL());
             ImageIcon icon = new ImageIcon(img);
@@ -178,7 +178,7 @@ public class GUI extends JFrame implements ActionListener {
         }
     }
 
-    //implementing action listneres for buttons
+    //implementing action listeners for buttons
     @Override
     public void actionPerformed(ActionEvent e) {
         JButton clickedButton = (JButton) e.getSource();
