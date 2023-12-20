@@ -6,17 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URL;
-import java.security.KeyStore;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
 
 
 public class GUI extends JFrame implements ActionListener {
 
-    JButton buttonTrue, buttonFalse, buttonEndGame, buttonPlayAgain;
+    JButton buttonTrue, buttonFalse, buttonEndGame, buttonNewGame;
     JLabel labelCorrectAnswer, name, type, labelQuestion, labelHeader, labelScore, labelTrueOrFalse;
     ImageIcon frameIcon = new ImageIcon("frameIcon.png");
     public URL getSpriteURL() {
@@ -55,16 +50,9 @@ public class GUI extends JFrame implements ActionListener {
         labelHeader.setHorizontalAlignment(SwingConstants.CENTER);
         labelHeader.setForeground(new Color(194, 170, 13));
 
-        labelScore = new JLabel();
-        labelScore.setBounds(0, 370, 700, 100);
-        labelScore.setBackground(new Color(0, 0, 0));
-        labelScore.setForeground(new Color(250, 250, 250));
-        labelScore.setFont(new Font("Verdana", Font.PLAIN, 15));
-        labelScore.setHorizontalAlignment(SwingConstants.CENTER);
-
         labelTrueOrFalse = new JLabel("True or False");
         labelTrueOrFalse.setFont(new Font("Verdana", Font.PLAIN, 20));
-        labelTrueOrFalse.setBounds(0, 120, 700, 80);
+        labelTrueOrFalse.setBounds(0, 100, 700, 80);
         labelTrueOrFalse.setBackground(new Color(25, 25, 25));
         labelTrueOrFalse.setForeground(new Color(211, 106, 19));
         labelTrueOrFalse.setHorizontalAlignment(SwingConstants.CENTER);
@@ -75,6 +63,13 @@ public class GUI extends JFrame implements ActionListener {
         labelQuestion.setBackground(new Color(25, 25, 25));
         labelQuestion.setForeground(new Color(222, 194, 24));
         labelQuestion.setHorizontalAlignment(SwingConstants.CENTER);
+
+        labelScore = new JLabel();
+        labelScore.setBounds(0, 370, 700, 100);
+        labelScore.setBackground(new Color(0, 0, 0));
+        labelScore.setForeground(new Color(250, 250, 250));
+        labelScore.setFont(new Font("Verdana", Font.PLAIN, 15));
+        labelScore.setHorizontalAlignment(SwingConstants.CENTER);
 
         labelCorrectAnswer = new JLabel();
         labelCorrectAnswer.setFont(new Font("Verdana", Font.PLAIN, 16));
@@ -118,32 +113,31 @@ public class GUI extends JFrame implements ActionListener {
         buttonFalse.addActionListener(this);
 
         buttonEndGame = new JButton();
-        buttonEndGame.setBounds(300, 560, 100, 50);
+        buttonEndGame.setBounds(480, 500, 100, 30);
         buttonEndGame.setFocusable(false);
-        buttonEndGame.setFont(new Font("Verdana", Font.BOLD, 14));
+        buttonEndGame.setFont(new Font("Verdana", Font.BOLD, 11));
         buttonEndGame.setText("End Game");
-        buttonEndGame.setForeground(new Color(255, 255, 255));
-        buttonEndGame.setBackground(new Color(30, 29, 29, 255));
-        buttonEndGame.setBorder(new EtchedBorder());
+        buttonEndGame.setForeground(new Color(30, 29, 29, 255));
+        buttonEndGame.setBackground(new Color(211, 106, 19));
         buttonEndGame.addActionListener(this);
 
-        buttonPlayAgain = new JButton();
-        buttonPlayAgain.setBounds(300, 560, 100, 50);
-        buttonPlayAgain.setFocusable(false);
-        buttonPlayAgain.setFont(new Font("Verdana", Font.BOLD, 14));
-        buttonPlayAgain.setText("Play Again");
-        buttonPlayAgain.setForeground(new Color(255, 255, 255));
-        buttonPlayAgain.setBackground(new Color(30, 29, 29, 255));
-        buttonPlayAgain.setBorder(new EtchedBorder());
-        buttonPlayAgain.addActionListener(this);
+        buttonNewGame = new JButton();
+        buttonNewGame.setBounds(480, 470, 100, 30);
+        buttonNewGame.setFocusable(false);
+        buttonNewGame.setFont(new Font("Verdana", Font.BOLD, 11));
+        buttonNewGame.setText("New Game");
+        buttonNewGame.setForeground(new Color(30, 29, 29, 255));
+        buttonNewGame.setBackground(new Color(222, 194, 24));
+        buttonNewGame.addActionListener(this);
 
         add(labelScore);
         add(labelHeader);
+
         add(labelTrueOrFalse);
         add(buttonTrue);
         add(buttonFalse);
         add(buttonEndGame);
-        add(buttonPlayAgain);
+        add(buttonNewGame);
         add(labelCorrectAnswer);
 
 
@@ -198,10 +192,13 @@ public class GUI extends JFrame implements ActionListener {
         } else if (clickedButton == buttonEndGame) {
             buttonTrue.setEnabled(false);
             buttonFalse.setEnabled(false);
-
-            buttonPlayAgain.setEnabled(true);
-
             results();
+
+        } else if (clickedButton == buttonNewGame) {
+
+            reset();
+
+            newGame();
         }
     }
 
@@ -217,9 +214,7 @@ public class GUI extends JFrame implements ActionListener {
            } else {
                buttonFalse.setBackground(new Color(0, 200, 0));
            }
-            // clickedButton.setBackground(new Color(0, 200, 0));
             correct_guesses++;
-            //labelCorrectAnswer.setText("You were correct!");
 
         } else {
             if (userAnswer) {
@@ -228,7 +223,6 @@ public class GUI extends JFrame implements ActionListener {
                 buttonFalse.setBackground(new Color(250, 0, 0));
             }
 
-           // labelCorrectAnswer.setText("That's wrong!");
         }
 
         total_questions++;  //counter for total guesses
@@ -239,18 +233,6 @@ public class GUI extends JFrame implements ActionListener {
 
         pause.start(); //starting timer for showing correct answer
     }
-/*
-    //method for marking answers when timer is up without counting guesses
-    private void fakeButtonPress() {
-//if user doiesnt answer in time, computer shows answer
-        boolean correctAnswer = question.getTrueOrFalse();
-        if (correctAnswer) {
-            buttonTrue.setBackground(new Color(0, 200, 0));
-        } else {
-            buttonFalse.setBackground(new Color(250, 0, 0));
-        }
-    }*/
-
 
     //delay the colors of the buttons until next question
     Timer pause = new Timer(200, new ActionListener() {
@@ -281,13 +263,20 @@ public class GUI extends JFrame implements ActionListener {
        labelScore.setText("Score " + correct_guesses + " /" + total_questions + " correct guesses");
        labelScore.setFont(new Font("Verdana", Font.PLAIN, 30));
        labelScore.setBounds(0, 230, 700, 80);
+
+    }
+
+    private void newGame() {
+        correct_guesses = 0;
+        total_questions = 0;
+        labelScore.setBounds(0, 370, 700, 80);
+        labelScore.setText("Points " + correct_guesses + " / " + total_questions);
+        labelScore.setFont(new Font("Verdana", Font.PLAIN, 15));
+        reset();
+        buttonTrue.setEnabled(true);
+        buttonFalse.setEnabled(true);
     }
 
 }
 
-//OPTION TO PLAY AGAIN
-//ADD SO YOU CAN SEE THE SCORE ALL THE TIME
-
-//HALF PAGE PA ROSITSAS
-//OUR RAPPORT
 
