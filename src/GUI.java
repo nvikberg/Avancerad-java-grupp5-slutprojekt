@@ -56,7 +56,7 @@ public class GUI implements ActionListener {
         labelHeader.setForeground(new Color(194, 170, 13));
 
         labelScore = new JLabel();
-        labelScore.setBounds(0, 220, 700, 100);
+        labelScore.setBounds(0, 370, 700, 100);
         labelScore.setBackground(new Color(0, 0, 0));
         labelScore.setForeground(new Color(250, 250, 250));
         labelScore.setFont(new Font("Verdana", Font.PLAIN, 15));
@@ -154,7 +154,7 @@ public class GUI implements ActionListener {
         setSpriteURL(GeneratePokemon.getPokemons().getFirst().getSpriteURL());
 
         labelQuestion.setText(question.randomQuestion());
-        labelScore.setText(correct_guesses + " / " + total_questions);
+        labelScore.setText("Points " + correct_guesses + " / " + total_questions);
 
         pokemonSprite();
 
@@ -241,7 +241,7 @@ public class GUI implements ActionListener {
 
     //timer used to 1.keep correct answer label showing the answer before going to new question
     //and also delay the colors of the buttons until next question
-    Timer pause = new Timer(800, new ActionListener() {
+    Timer pause = new Timer(200, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
 
