@@ -8,12 +8,14 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.net.URL;
+import java.security.KeyStore;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 
 public class GUI implements ActionListener {
+    private boolean userAnswered = false;
     JButton buttonTrue, buttonFalse, buttonEndGame;
     JLabel labelWrongAnswer, labelCorrectAnswer, name, type, labelQuestion, labelHeader, labelTime,
             labelSeconds, labelScore, labelSecondsLeft;
@@ -82,7 +84,7 @@ public class GUI implements ActionListener {
         labelSeconds.setBounds(500, 470, 100, 100);
         labelSeconds.setForeground(new Color(125, 25, 25));
         labelSeconds.setFont(new Font("Verdana", Font.PLAIN, 25));
-        // labelSeconds.setOpaque(true);
+        //labelSeconds.setOpaque(true);
         labelSeconds.setText(String.valueOf(seconds));
         labelSeconds.setHorizontalAlignment(SwingConstants.CENTER);
 
@@ -197,11 +199,11 @@ public class GUI implements ActionListener {
 
     public void newPokemon(){
         new GeneratePokemon();
-         question = new PokemonQuestions(GeneratePokemon.getPokemons());
+        question = new PokemonQuestions(GeneratePokemon.getPokemons());
         currentPokemon = question.getTruePokemon();
         setSpriteURL(GeneratePokemon.getPokemons().getFirst().getSpriteURL());
 
-        labelQuestion.setText("True or false! " + question.randomQuestion());
+        labelQuestion.setText("True or false! \n" + question.randomQuestion());
         pokemonSpirte();
     }
 
@@ -213,24 +215,14 @@ public class GUI implements ActionListener {
             ImageIcon icon = new ImageIcon(img);
 
             getSpriteLabel().setIcon(icon);
-            getSpriteLabel().setBounds(300, 250, 200, 200);
+            getSpriteLabel().setBounds(300, 250, 700, 200);
 
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public void reset(){
-        newPokemon();
-        labelCorrectAnswer.setText("");
-        buttonTrue.setBackground(new Color(30, 29, 29, 255));
-        buttonFalse.setBackground(new Color(30, 29, 29, 255));
-        buttonTrue.setEnabled(true);
-        buttonFalse.setEnabled(true);
-        frame.setVisible(true);
-    }
-
-    //method for next question //NOT FUNCTIONING CORRECT
+    //method for next question
     public void nextQuestion() {
         /*Pokemon currentPokemon = pokemonQuestions.getTruePokemon();*/
         // GeneratePokemon.getPokemons().getFirst();
@@ -261,58 +253,31 @@ public class GUI implements ActionListener {
         }
     }
 
-    //implementing action listneres for buttons, having issues reaching false button
+    //implementing action listneres for buttons
     @Override
     public void actionPerformed(ActionEvent e) {
-        // buttonTrue.setEnabled(false);
-        //buttonFalse.setEnabled(false);
-
         JButton clickedButton = (JButton) e.getSource();
 
         if (clickedButton == buttonTrue) {
             buttonPress(true);
+            //buttonTrue.setBackground(new Color(0, 200, 0));
 
+            // Enable buttons when a button is clicked
+       // buttonTrue.setEnabled(false);
+       // buttonFalse.setEnabled(false);
 
-
-        } else if (clickedButton == buttonFalse) {
+    } else if (clickedButton == buttonFalse) {
             buttonPress(false);
-
 
         } else if (clickedButton == buttonEndGame) {
             buttonTrue.setEnabled(false);
             buttonFalse.setEnabled(false);
-
             results();
         }
-
-        //nextQuestion(); //call method for new question
-
     }
-
-    //timer to change questions
-   /* Timer pause = new Timer(2000, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            seconds = 10;
-            labelSeconds.setText(String.valueOf(seconds));
-
-            buttonTrue.setBackground(new Color(30, 29, 29, 255));
-            buttonFalse.setBackground(new Color(30, 29, 29, 255));
-
-            buttonTrue.setEnabled(true);
-            buttonFalse.setEnabled(true);
-
-            nextQuestion(); //call method for new question
-        }
-    });*/
-
-    // pause.setRepeats(false); //timer only goes once
-
-
     //for changing colors when pressed, green correct and red wrong
     private void buttonPress(boolean userAnswer) {
-        buttonTrue.setEnabled(false);
-        buttonFalse.setEnabled(false);
+        //userAnswered=true; //flagging this to use in timer
 
         if (question.getTrueOrFalse() == userAnswer) { //get true or false method from PQ class
             buttonTrue.setBackground(new Color(0, 200, 0));
@@ -322,31 +287,49 @@ public class GUI implements ActionListener {
         } else {
             buttonFalse.setBackground(new Color(250, 0, 0));
             labelCorrectAnswer.setText("That's wrong!");
-            // pause.stop();
-
         }
+
         total_questions++;  //counter for total guesses
-        pause.stop();
-        reset();
+
+        // Disable buttons
+        buttonTrue.setEnabled(false);
+        buttonFalse.setEnabled(false);
+
+        pause.start(); //starting timer for showing correct answer
+
+    }
+
+    //method for marking answers when timer is up without counting guesses
+    private void fakeButtonPress() {
+//if user doiesnt answer in time, computer shows answer
+        boolean correctAnswer = question.getTrueOrFalse();
+        if (correctAnswer) {
+            buttonTrue.setBackground(new Color(0, 200, 0));
+        } else {
+            buttonFalse.setBackground(new Color(250, 0, 0));
+        }
     }
 
     Timer pause = new Timer(2000, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            seconds = 10;
 
-            labelSeconds.setText(String.valueOf(seconds));
+            labelCorrectAnswer.setText("");
 
-            buttonTrue.setBackground(new Color(30, 29, 29, 255));
-            buttonFalse.setBackground(new Color(30, 29, 29, 255));
-
-            buttonTrue.setEnabled(true);
-            buttonFalse.setEnabled(true);
-
-            reset();
-            // nextQuestion(); //call method for new question
+            reset(); //next question
+            pause.stop(); //stop timer on label
         }
     });
+
+    public void reset(){
+        newPokemon();
+        //labelCo.setText("");
+        buttonTrue.setBackground(new Color(30, 29, 29, 255));
+        buttonFalse.setBackground(new Color(30, 29, 29, 255));
+
+        buttonTrue.setEnabled(true);
+        buttonFalse.setEnabled(true);
+    }
 
 
     //method for displaying result in the end
