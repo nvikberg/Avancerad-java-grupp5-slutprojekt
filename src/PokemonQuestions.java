@@ -62,7 +62,6 @@ public class PokemonQuestions {
         setFalsePokemon(getPokemons().getLast());
         //saves a random number between 1 and 0
         int randomNumb = getRand().nextInt(2);
-        System.out.println("RANDOM " + randomNumb);
         //if the number is 1 then it is a true statement and
         // the questions will be based on the pokemon that the users see
         //otherwise it will be false and the questions will be based around the other pokemon
@@ -97,8 +96,6 @@ public class PokemonQuestions {
         getQuestionList().add(moveQuestion);
         getQuestionList().add(typeQuestion);
 
-        System.out.println(getQuestionList());
-        pokemon.pokemonInfo();
 
     }
 

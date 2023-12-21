@@ -96,8 +96,6 @@ public class GeneratePokemon {
 
             }
         }
-        getPokemons().getFirst().pokemonInfo();
-        getPokemons().getLast().pokemonInfo();
 
     }
 
@@ -135,7 +133,7 @@ public class GeneratePokemon {
 
 
             typeArrayList.add(type);
-            /*System.out.println(typeArrayList);*/
+
         }
         return typeArrayList;
     }

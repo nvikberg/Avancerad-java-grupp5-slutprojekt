@@ -196,8 +196,9 @@ public class GUI extends JFrame implements ActionListener {
 
         } else if (clickedButton == buttonNewGame) {
 
-            reset();
             newGame();
+            reset();
+
         }
     }
 
@@ -271,7 +272,7 @@ public class GUI extends JFrame implements ActionListener {
         labelScore.setBounds(0, 370, 700, 80);
         labelScore.setText("Points " + correct_guesses + " / " + total_questions);
         labelScore.setFont(new Font("Verdana", Font.PLAIN, 15));
-        reset();
+
         buttonTrue.setEnabled(true);
         buttonFalse.setEnabled(true);
     }

@@ -38,9 +38,6 @@ public class PokeAPI {
 
                 //get values out from the url data json
                 jv = Json.parse(String.valueOf(response));
-                JsonObject jo = jv.asObject().get("species").asObject();
-                String s = jo.get("name").asString();
-                System.out.println(s);
 
             } else { // Handle the error response
                 System.out.println("Error response code: " + responseCode);
@@ -52,7 +49,6 @@ public class PokeAPI {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(id);
         return jv; //return json
     }
 }
