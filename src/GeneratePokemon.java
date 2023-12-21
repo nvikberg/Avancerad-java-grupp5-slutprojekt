@@ -86,8 +86,6 @@ public class GeneratePokemon {
                 for (String move:getPokemons().getFirst().getMoveList()){
                     //removes that move if it's in the last pokemon move list
                     getPokemons().getLast().getMoveList().remove(move);
-                    // System.out.println(move + " was removed");
-                    //System.out.println(getPokemons().getFirst().getMoveList().toString());
                 }
                 //if the last pokemon move list is empty,removes that pokemon and starts over the loop
                 if (getPokemons().getLast().getMoveList().isEmpty()){

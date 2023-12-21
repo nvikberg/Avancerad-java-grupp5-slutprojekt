@@ -1,6 +1,6 @@
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Scanner;
+
 
 public class Pokemon {
 
@@ -51,13 +51,12 @@ info about the pokemon can be used by pokemon info method
     Pokemon(String name, URL spriteURL, ArrayList<String> moveList, ArrayList<String> typeList) {
         setName(name);
         setSpriteURL(spriteURL);
-        ArrayList<String> f = new ArrayList<>();
         setTypeList(typeList);
         setMoveList(moveList);
     }
 
 
-    //method for gathering pokemons info thru getting - getName, getMove (only first one from list) and getType
+    //method for gathering pokemons info through getting - getName, getMove (only first one from list) and getType
     public void pokemonInfo() {
         System.out.println(getName() + " has this move " + getMoveList().getFirst() + " and is this type " + getTypeList());
     }
