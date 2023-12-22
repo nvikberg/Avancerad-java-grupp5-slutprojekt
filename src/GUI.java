@@ -69,13 +69,6 @@ public class GUI extends JFrame implements ActionListener {
         labelScore.setFont(new Font("Verdana", Font.PLAIN, 15));
         labelScore.setHorizontalAlignment(SwingConstants.CENTER);
 
-        labelCorrectAnswer = new JLabel();
-        labelCorrectAnswer.setFont(new Font("Verdana", Font.PLAIN, 16));
-        labelCorrectAnswer.setBounds(0, 200, 700, 80);
-        labelCorrectAnswer.setBackground(new Color(25, 25, 25));
-        labelCorrectAnswer.setForeground(new Color(211, 106, 19));
-        labelCorrectAnswer.setHorizontalAlignment(SwingConstants.CENTER);
-
         type = new JLabel();
         type.setFont(new Font("Verdana", Font.PLAIN, 12));
         type.setBounds(0, 200, 700, 80);
@@ -132,7 +125,6 @@ public class GUI extends JFrame implements ActionListener {
         add(buttonFalse);
         add(buttonEndGame);
         add(buttonNewGame);
-        add(labelCorrectAnswer);
 
         newPokemon(); //new pokemon call
         add(getSpriteLabel());
@@ -228,12 +220,9 @@ public class GUI extends JFrame implements ActionListener {
     }
 
     //delay the colors of the buttons until next question
-    Timer pause = new Timer(200, new ActionListener() {
+    Timer pause = new Timer(0, new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-
-            labelCorrectAnswer.setText("");
-
             reset(); //next question
             pause.stop(); //stop timer on label
         }
