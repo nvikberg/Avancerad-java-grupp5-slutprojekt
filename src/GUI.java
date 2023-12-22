@@ -12,7 +12,7 @@ import java.net.URL;
 public class GUI extends JFrame implements ActionListener {
 
     JButton buttonTrue, buttonFalse, buttonEndGame, buttonNewGame;
-    JLabel labelCorrectAnswer, name, type, labelQuestion, labelHeader, labelScore, labelTrueOrFalse;
+    JLabel labelCorrectAnswer, type, labelQuestion, labelHeader, labelScore, labelTrueOrFalse;
     ImageIcon frameIcon = new ImageIcon("frameIcon.png");
     public URL getSpriteURL() {
         return spriteURL;
@@ -75,13 +75,6 @@ public class GUI extends JFrame implements ActionListener {
         labelCorrectAnswer.setBackground(new Color(25, 25, 25));
         labelCorrectAnswer.setForeground(new Color(211, 106, 19));
         labelCorrectAnswer.setHorizontalAlignment(SwingConstants.CENTER);
-
-        name = new JLabel("Pokemon name goes here");
-        name.setFont(new Font("Verdana", Font.PLAIN, 18));
-        name.setBounds(0, 180, 700, 80);
-        name.setBackground(new Color(25, 25, 25));
-        name.setForeground(new Color(250, 250, 250));
-        name.setHorizontalAlignment(SwingConstants.CENTER);
 
         type = new JLabel();
         type.setFont(new Font("Verdana", Font.PLAIN, 12));
