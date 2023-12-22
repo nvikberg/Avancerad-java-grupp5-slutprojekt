@@ -1,4 +1,4 @@
-# Avancerad-java-grupp5-slutprojek
+# Avancerad-java-grupp5-slutprojekt
 av Sam Danielsson och Nikolina Vikberg
 
 Pokemon quiz med användning av APIn PokeAPI
